@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Panel - Category Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#855300",
+              "on-primary-fixed": "#00174b",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-low": "#eff4ff",
+              "surface-variant": "#d5e3fd",
+              "surface-tint": "#0053db",
+              "surface-dim": "#ccdbf4",
+              "surface-container-high": "#dde9ff",
+              "primary-fixed-dim": "#b4c5ff",
+              "on-primary-container": "#eeefff",
+              "background": "#f8f9ff",
+              "secondary-container": "#fea619",
+              "on-secondary-container": "#684000",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#2a1700",
+              "on-surface": "#0d1c2f",
+              "tertiary-fixed-dim": "#6bd8cb",
+              "on-tertiary-fixed-variant": "#005049",
+              "surface-container": "#e6eeff",
+              "surface-bright": "#f8f9ff",
+              "surface-container-highest": "#d5e3fd",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c3c6d7",
+              "tertiary": "#006058",
+              "on-primary-fixed-variant": "#003ea8",
+              "outline": "#737686",
+              "on-secondary-fixed-variant": "#653e00",
+              "tertiary-fixed": "#89f5e7",
+              "inverse-on-surface": "#ebf1ff",
+              "surface": "#f8f9ff",
+              "primary": "#004ac6",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#007b71",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-tertiary-container": "#b3fff3",
+              "on-background": "#0d1c2f",
+              "primary-fixed": "#dbe1ff",
+              "inverse-surface": "#233144",
+              "secondary-fixed": "#ffddb8",
+              "on-tertiary-fixed": "#00201d",
+              "primary-container": "#2563eb",
+              "on-surface-variant": "#434655",
+              "on-error": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 active:scale-95 duration-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</div>
+<h1 class="font-['Manrope'] font-bold tracking-tight text-lg text-slate-900 dark:text-slate-50">Admin Panel</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-slate-500 dark:text-slate-400 font-['Manrope'] font-semibold tracking-tight text-sm hidden md:block">Admin Profile</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-surface-container-high">
+<img alt="Admin Profile" data-alt="Close-up professional portrait of a male business executive with a friendly expression in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApsQzxomhPT8MOdu7fdGyv8kM71NLGwM0-P0WP5iOMARzukReiiZfe80wnjfp4VjrKl2vS9VY79GpHstJOi86vKFSHY6Xvp7kZ0g_-Mzw2Yreb6LRBsjDfn57qIkDXiW1n0_88f_Fe3Dgm2_quMHOWFgHHX6m4O7VtzknWhB6tutW8Efklqop97I0RSzDSs-NYM8R-Ie7lCKz9vDquhMwAxHaAm0i7-DTHhdexIqXsZjBM76pBGRMaHBTeGdPuVzbDUuuEu1K4Pw"/>
+</div>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full"></div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Dashboard Header Section -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-2">Category Management</h2>
+<p class="text-on-surface-variant font-medium max-w-xl">Configure and maintain the architectural structure of your service ecosystem. Monitor activity and resolve flags across all sectors.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-3.5 rounded-xl font-semibold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Create Category</span>
+</button>
+</div>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm flex flex-col justify-between">
+<span class="text-label-sm font-label uppercase tracking-widest text-on-surface-variant">Total Categories</span>
+<div class="mt-4">
+<div class="text-3xl font-headline font-bold text-primary">14</div>
+<div class="text-xs font-medium text-tertiary mt-1">+2 this month</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm flex flex-col justify-between">
+<span class="text-label-sm font-label uppercase tracking-widest text-on-surface-variant">Active Services</span>
+<div class="mt-4">
+<div class="text-3xl font-headline font-bold text-on-surface">142</div>
+<div class="text-xs font-medium text-secondary mt-1">8 pending review</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm flex flex-col justify-between col-span-1 md:col-span-2">
+<span class="text-label-sm font-label uppercase tracking-widest text-on-surface-variant">Flagged Items</span>
+<div class="mt-4 flex items-center justify-between">
+<div>
+<div class="text-3xl font-headline font-bold text-error">27</div>
+<div class="text-xs font-medium text-on-surface-variant mt-1">Requires immediate attention</div>
+</div>
+<div class="flex -space-x-2">
+<div class="w-10 h-10 rounded-full border-2 border-white bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined text-sm" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-slate-400 text-xs font-bold">+12</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Grid (The Main Content) -->
+<section>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Category Card: Plumber -->
+<div class="group relative bg-surface-container-lowest rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="plumbing">plumbing</span>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary-fixed text-on-primary-fixed">Active</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-1">Plumber</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Emergency repairs, installations, and seasonal pipe maintenance.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Services</span>
+<span class="text-lg font-bold">24</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Complaints</span>
+<span class="text-lg font-bold text-error">2</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-b-xl flex justify-center">
+<button class="text-primary font-bold text-sm tracking-tight hover:underline flex items-center gap-1">
+                            Drill Down Service List
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Category Card: Electrician -->
+<div class="group relative bg-surface-container-lowest rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="bolt">bolt</span>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary-fixed text-on-primary-fixed">Active</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-1">Electrician</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Wiring, lighting design, and residential electrical audits.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Services</span>
+<span class="text-lg font-bold">18</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Complaints</span>
+<span class="text-lg font-bold text-error">0</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-b-xl flex justify-center">
+<button class="text-primary font-bold text-sm tracking-tight hover:underline flex items-center gap-1">
+                            Drill Down Service List
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Category Card: Barber -->
+<div class="group relative bg-surface-container-lowest rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="content_cut">content_cut</span>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary-fixed text-on-secondary-fixed">Inactive</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-1">Barber</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Precision cutting, beard styling, and traditional grooming services.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Services</span>
+<span class="text-lg font-bold">42</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Complaints</span>
+<span class="text-lg font-bold text-error">12</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-b-xl flex justify-center">
+<button class="text-primary font-bold text-sm tracking-tight hover:underline flex items-center gap-1">
+                            Drill Down Service List
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Category Card: Cleaner -->
+<div class="group relative bg-surface-container-lowest rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="cleaning_services">cleaning_services</span>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary-fixed text-on-primary-fixed">Active</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-1">Cleaner</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Deep residential cleaning, commercial janitorial, and specialized move-out.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Services</span>
+<span class="text-lg font-bold">56</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Complaints</span>
+<span class="text-lg font-bold text-error">3</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-b-xl flex justify-center">
+<button class="text-primary font-bold text-sm tracking-tight hover:underline flex items-center gap-1">
+                            Drill Down Service List
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Category Card: Tutor -->
+<div class="group relative bg-surface-container-lowest rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-all duration-300">
+<div class="p-6">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container-high rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="school">school</span>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary-fixed text-on-primary-fixed">Active</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-1">Private Tutor</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Academic support, test prep, and musical instrument instruction.</p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/10">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Services</span>
+<span class="text-lg font-bold">31</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Complaints</span>
+<span class="text-lg font-bold text-on-surface">1</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-b-xl flex justify-center">
+<button class="text-primary font-bold text-sm tracking-tight hover:underline flex items-center gap-1">
+                            Drill Down Service List
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Empty State / Add New Placeholder -->
+<div class="border-2 border-dashed border-outline-variant/30 rounded-xl flex flex-col items-center justify-center p-8 bg-surface/30 hover:bg-surface-container/20 transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-full border border-outline-variant/50 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+<span class="font-headline font-bold text-on-surface-variant group-hover:text-primary transition-colors">Add New Sector</span>
+</div>
+</div>
+</section>
+<!-- Contextual Detailed Breakdown (Asymmetric Section) -->
+<section class="mt-20">
+<div class="flex flex-col lg:flex-row gap-12">
+<div class="lg:w-1/3">
+<h4 class="font-headline text-2xl font-bold text-on-surface mb-4">High Risk Alerts</h4>
+<p class="text-on-surface-variant leading-relaxed mb-8">The following categories have received an unusual spike in user flags within the last 48 hours. Immediate audit recommended.</p>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-error-container/20 border border-error/10">
+<span class="material-symbols-outlined text-error" data-icon="report" style="font-variation-settings: 'FILL' 1;">report</span>
+<div>
+<div class="font-bold text-on-surface text-sm">HVAC Technicians</div>
+<div class="text-xs text-error font-medium">8 new complaints logged</div>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-error-container/20 border border-error/10">
+<span class="material-symbols-outlined text-error" data-icon="report" style="font-variation-settings: 'FILL' 1;">report</span>
+<div>
+<div class="font-bold text-on-surface text-sm">Personal Trainers</div>
+<div class="text-xs text-error font-medium">5 profile verification flags</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-2/3 bg-surface-container-high rounded-3xl p-8 overflow-hidden relative">
+<div class="relative z-10">
+<h4 class="font-headline text-2xl font-bold text-primary mb-2">Category Performance</h4>
+<div class="h-64 mt-8 flex items-end gap-4 overflow-x-auto no-scrollbar">
+<div class="flex-1 min-w-[60px] flex flex-col items-center">
+<div class="w-full bg-primary/40 rounded-t-lg h-[80%]"></div>
+<span class="text-[10px] mt-2 font-bold uppercase tracking-tighter">Plum</span>
+</div>
+<div class="flex-1 min-w-[60px] flex flex-col items-center">
+<div class="w-full bg-primary/60 rounded-t-lg h-[60%]"></div>
+<span class="text-[10px] mt-2 font-bold uppercase tracking-tighter">Elec</span>
+</div>
+<div class="flex-1 min-w-[60px] flex flex-col items-center">
+<div class="w-full bg-primary rounded-t-lg h-[95%]"></div>
+<span class="text-[10px] mt-2 font-bold uppercase tracking-tighter">Clean</span>
+</div>
+<div class="flex-1 min-w-[60px] flex flex-col items-center">
+<div class="w-full bg-primary/20 rounded-t-lg h-[30%]"></div>
+<span class="text-[10px] mt-2 font-bold uppercase tracking-tighter">Barb</span>
+</div>
+<div class="flex-1 min-w-[60px] flex flex-col items-center">
+<div class="w-full bg-primary/80 rounded-t-lg h-[75%]"></div>
+<span class="text-[10px] mt-2 font-bold uppercase tracking-tighter">Tutor</span>
+</div>
+<div class="flex-1 min-w-[60px] flex flex-col items-center">
+<div class="w-full bg-primary/50 rounded-t-lg h-[50%]"></div>
+<span class="text-[10px] mt-2 font-bold uppercase tracking-tighter">Gard</span>
+</div>
+</div>
+</div>
+<!-- Background texture/gradient -->
+<div class="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile only as per requirements) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-white dark:bg-slate-900 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] border-t border-slate-100 dark:border-slate-800">
+<div class="flex justify-around items-center h-20 px-4 pb-safe w-full">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Vendors</span>
+</div>
+<div class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="category" style="font-variation-settings: 'FILL' 1;">category</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Categories</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Bookings</span>
+</div>
+</div>
+</nav>
+<!-- FAB for Task Focused (Suppressed on Details/Transactional, but shown on main category view) -->
+<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-40">
+<span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
+</button>
+</body></html>

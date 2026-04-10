@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Architectural Concierge | Service Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#d5e3fd",
+              "outline": "#737686",
+              "surface-dim": "#ccdbf4",
+              "on-tertiary-fixed-variant": "#005049",
+              "tertiary-container": "#007b71",
+              "surface": "#f8f9ff",
+              "error-container": "#ffdad6",
+              "on-surface-variant": "#434655",
+              "on-secondary-fixed": "#2a1700",
+              "on-background": "#0d1c2f",
+              "on-error": "#ffffff",
+              "on-primary-fixed-variant": "#003ea8",
+              "tertiary-fixed": "#89f5e7",
+              "surface-container-low": "#eff4ff",
+              "surface-tint": "#0053db",
+              "secondary-container": "#fea619",
+              "surface-container-high": "#dde9ff",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "secondary": "#855300",
+              "primary-container": "#2563eb",
+              "on-secondary-container": "#684000",
+              "on-tertiary-container": "#b3fff3",
+              "outline-variant": "#c3c6d7",
+              "on-tertiary-fixed": "#00201d",
+              "on-tertiary": "#ffffff",
+              "secondary-fixed": "#ffddb8",
+              "secondary-fixed-dim": "#ffb95f",
+              "inverse-on-surface": "#ebf1ff",
+              "on-primary-fixed": "#00174b",
+              "primary-fixed-dim": "#b4c5ff",
+              "on-primary-container": "#eeefff",
+              "tertiary": "#006058",
+              "surface-container": "#e6eeff",
+              "on-surface": "#0d1c2f",
+              "on-secondary-fixed-variant": "#653e00",
+              "on-primary": "#ffffff",
+              "background": "#f8f9ff",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "inverse-surface": "#233144",
+              "on-error-container": "#93000a",
+              "primary-fixed": "#dbe1ff",
+              "tertiary-fixed-dim": "#6bd8cb",
+              "primary": "#004ac6",
+              "surface-container-highest": "#d5e3fd",
+              "surface-bright": "#f8f9ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full flex justify-between items-center px-6 py-4 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-xl z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">location_on</span>
+<span class="font-manrope tracking-tight text-lg font-bold text-blue-700 dark:text-blue-400">Architectural Concierge</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 transition-transform text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<div class="fixed top-[60px] left-0 w-full h-[1px] bg-slate-100 dark:bg-slate-800 z-50"></div>
+<main class="pt-20 pb-32">
+<!-- Hero Search Section -->
+<section class="px-6 py-6 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-b-[2.5rem] shadow-xl overflow-hidden relative">
+<div class="relative z-10">
+<h1 class="font-headline text-3xl font-extrabold tracking-tighter leading-tight mb-6">
+                    Find the perfect <br/>expertise for your space.
+                </h1>
+<!-- Search Bar -->
+<div class="relative flex items-center">
+<span class="absolute left-4 material-symbols-outlined text-on-surface-variant/60">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-lowest text-on-surface rounded-xl border-none focus:ring-2 focus:ring-secondary-container placeholder:text-outline/50 shadow-sm" placeholder="Search for plumbers, barbers..." type="text"/>
+</div>
+<!-- Quick Location -->
+<div class="mt-4 flex items-center gap-2 opacity-90">
+<span class="material-symbols-outlined text-sm">near_me</span>
+<span class="text-xs font-label font-bold tracking-widest uppercase">Current: Indiranagar, Bengaluru</span>
+</div>
+</div>
+<!-- Decorative Grain -->
+<div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBNtmDNGeno9ht3pfvSCLckmm-7a-raDlmqkeaDqwrz2PxkgAlz1eB_R8hgbqQvMD469dGi0MK05wQNpyit_J2BIW43JW5xz9KrITYURIPqKZFHUORsLjs1mRgrSFuBwsl3ZQJWRrDNeg4SX846fQWMurK3aFhv5Ec-mHdgxFjFIbPrqdgfRUxMWv32_i7boCtc7LwUgcQqpN1A9NSaxKlHWZuRoexOOhfZy9GC3hEiM0VPolmTKvipksu5m17JIqIkohDxpYW3gQ');"></div>
+</section>
+<!-- Category Strip -->
+<section class="mt-8">
+<div class="px-6 flex justify-between items-end mb-4">
+<h2 class="font-headline text-xl font-bold tracking-tight">Categories</h2>
+<span class="text-primary font-label text-xs font-bold tracking-widest uppercase">View All</span>
+</div>
+<div class="flex overflow-x-auto gap-4 px-6 no-scrollbar">
+<!-- Category Item -->
+<div class="flex flex-col items-center gap-2 min-w-[72px]">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">home</span>
+</div>
+<span class="text-[11px] font-bold font-label uppercase tracking-wider text-on-surface-variant">Home</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[72px]">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">plumbing</span>
+</div>
+<span class="text-[11px] font-bold font-label uppercase tracking-wider text-on-surface-variant">Plumber</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[72px]">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">bolt</span>
+</div>
+<span class="text-[11px] font-bold font-label uppercase tracking-wider text-on-surface-variant">Electric</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[72px]">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">content_cut</span>
+</div>
+<span class="text-[11px] font-bold font-label uppercase tracking-wider text-on-surface-variant">Barber</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[72px]">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-high flex items-center justify-center text-primary active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">brush</span>
+</div>
+<span class="text-[11px] font-bold font-label uppercase tracking-wider text-on-surface-variant">Painter</span>
+</div>
+</div>
+</section>
+<!-- Featured Section (Bentoish Cards) -->
+<section class="mt-10">
+<div class="px-6 mb-4">
+<h2 class="font-headline text-xl font-bold tracking-tight">Popular Near You</h2>
+</div>
+<div class="flex overflow-x-auto gap-6 px-6 no-scrollbar">
+<!-- Featured Card 1 -->
+<div class="min-w-[280px] bg-surface-container-lowest rounded-3xl overflow-hidden relative shadow-sm group">
+<img class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500" data-alt="professional electrician in blue uniform working on a modern electrical panel with focused expression and bright lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqpoNXYlZwGznhz4pTJOn6nF1JJ_e7Q3kWZJVe3UOqQGWrAfCQjfdS-N8EMRZvBuR0uUwxITpTcxS7ZT1iM8Upau7p_D4ftep7K83sjs_agJKpD6dHFC_RVGm4AjjhqBByFC8gJgNvvlp7npcqANgqNLLE5s1K8V78imwZ0hsDGujMs944JY-SXZeHZH503A-2A1iMJ6a9I1KmHK7x1Jf4U1SvATigSRLiIbQys7NR6yiWyftEVrUZ_eHufiXVU4I-6i5wTeYozg"/>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold rounded-full uppercase tracking-widest">Top Rated</span>
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-sm fill-current text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">4.9</span>
+</div>
+</div>
+<h3 class="font-headline font-bold text-lg leading-tight mb-1">Precision Electricals</h3>
+<p class="text-on-surface-variant text-sm mb-4">Modern home wiring specialists</p>
+<button class="w-full py-3 bg-secondary-container text-on-secondary-container font-bold rounded-xl active:scale-95 transition-transform">Book Now</button>
+</div>
+</div>
+<!-- Featured Card 2 -->
+<div class="min-w-[280px] bg-surface-container-lowest rounded-3xl overflow-hidden relative shadow-sm group">
+<img class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500" data-alt="stylish modern barbershop interior with leather chairs, warm ambient lighting, and organized grooming tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWLCzqpeJKDBOIJO5ic8xK3KVpsjSWqTTLEVxZedBUXaOs4zJ4kJBu8han3soASE-AZwUqvHlNk9UzR7oULiRgLO-AjP9GYb21muONWFOwVwf_W8NS_1hEFn2cWVDUFZop8gm9F8Uv3B5N9mXv-VW7R2WVADksrVicZW2ZfxIVx1kKPLXWH5YZhg7ytVjtfX5UOLQtPoJCD_9R_eQmwG4r_J2-viT-juoWwMKXyvG231oWVGXWH9N8kOJSX1YuKwWp--ck3T4bCQ"/>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase tracking-widest">Shop Visit</span>
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-sm fill-current text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold">4.8</span>
+</div>
+</div>
+<h3 class="font-headline font-bold text-lg leading-tight mb-1">The Grooming Lounge</h3>
+<p class="text-on-surface-variant text-sm mb-4">Premium haircuts &amp; styling</p>
+<button class="w-full py-3 bg-surface-container-high text-primary font-bold rounded-xl active:scale-95 transition-transform">Book Now</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Service List -->
+<section class="mt-12 px-6">
+<h2 class="font-headline text-xl font-bold tracking-tight mb-6">Expert Services</h2>
+<div class="flex flex-col gap-8">
+<!-- Service Item 1 -->
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="close up of a professional plumber fixing a sleek modern bathroom faucet with chrome finish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAszm6vBOT8Lzeq8L3oL1RpFKzKMM_J9rINPNcNFQDCpc6S29WNIs1YhwkzJ0Ju47dxwUzZf9c45bX8WMwcA9SwFbeUdyR18L4U1iudLE9LV51SgBHfK2b3V_oVQk_SIuxDV2day3ERZD1YgHh8iOmNus_AHZeaCHaBcXeNChk5HjkLp8BCTsHlphc5iItzeuCO-MJHFNY5kiF0MYVOuDUHqU-UKPnSMFjW4ftyJa1KLnh5CrXAklhbUSdh-lwdCMc4aWyp63liRw"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-1">
+<div>
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-base">Elite Plumbing Solutions</h4>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs fill-current text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold">4.7</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">By Arshad Khan • Home Service</p>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold text-sm">Starting at ₹499</span>
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed text-[9px] font-bold rounded uppercase tracking-wider">Home visit</span>
+</div>
+</div>
+</div>
+<!-- Surface Shift Spacer -->
+<div class="h-[1px] w-12 bg-outline-variant/30"></div>
+<!-- Service Item 2 -->
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="professional interior house painting with neat masking tape and fresh neutral color on walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkacOWPEXZKpBBJKgV-q12q3NSbeOk8EM702WPbk36Z5dvQgFePY5zjQ3LHubf8A7lCWPy69dZGo7sdqopKRZI8NDxLcUtdUsr2JkucbcYiXYiNlWXne5FX_u98_ZndSzJKbRBNSG_ZOov-w6CCRZf0usaxFgZ6Kjq76PX0yRwPpkR2qwEKQK8wNX4mO_LDJ3e9VtFuzKKNiNf80pHx66q4i_LWaIa2a9Bvra_uqmoGmlj-eQDoo3FKnJXob_E3AOEmAsov36-aQ"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-1">
+<div>
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-base">Wall Decor Pros</h4>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs fill-current text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold">4.9</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">By Creative Finishes • Both</p>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold text-sm">Starting at ₹1,200</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[9px] font-bold rounded uppercase tracking-wider">Both</span>
+</div>
+</div>
+</div>
+<!-- Surface Shift Spacer -->
+<div class="h-[1px] w-12 bg-outline-variant/30"></div>
+<!-- Service Item 3 -->
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="top-down view of modern dental tools and clean minimalist clinical office setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5iIv6TnoByVgpRhw2O7oHQujB_TvK1tkSwi-Jaj5jG1QlqlQJvjsV4Wmr3zTcBWxL4RJ9VNM5peXf9hIrdq_YNv8QPNEN-mbstXDaN4ss24P7KcAz2V9_gS8D3poMM4D9OBYo3VHXwh_RAt8gmwz_qjkXrH-yrWru-XJRgR957RDZWnyk_QRw9aTm2HsUBM3jWTuwGSvnqRbm738aX6lFa9akb0b-dji49o6u9lILo1xwqjlGGHHikXY2HE7zOfOo-i14YOPMsA"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-1">
+<div>
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-base">The Wellness Clinic</h4>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs fill-current text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold">5.0</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">By Dr. Sarah Lee • Shop Visit</p>
+</div>
+<div class="flex items-center justify-between mt-2">
+<span class="text-primary font-bold text-sm">Starting at ₹800</span>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[9px] font-bold rounded uppercase tracking-wider">Shop visit</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white dark:bg-slate-950 z-50 rounded-t-3xl shadow-[0_-4px_24px_rgba(13,28,47,0.04)]">
+<a class="flex flex-col items-center justify-center bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-2xl px-5 py-2 scale-98 transition-all duration-300 ease-out hover:text-blue-600 dark:hover:text-blue-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-inter text-[10px] uppercase tracking-[0.05em] font-bold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 scale-98 transition-all duration-300 ease-out hover:text-blue-600 dark:hover:text-blue-300" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-inter text-[10px] uppercase tracking-[0.05em] font-bold mt-1">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 scale-98 transition-all duration-300 ease-out hover:text-blue-600 dark:hover:text-blue-300" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-inter text-[10px] uppercase tracking-[0.05em] font-bold mt-1">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 scale-98 transition-all duration-300 ease-out hover:text-blue-600 dark:hover:text-blue-300" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-inter text-[10px] uppercase tracking-[0.05em] font-bold mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

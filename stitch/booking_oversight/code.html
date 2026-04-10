@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Booking Oversight</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary": "#855300",
+                        "on-primary-fixed": "#00174b",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-variant": "#d5e3fd",
+                        "surface-tint": "#0053db",
+                        "surface-dim": "#ccdbf4",
+                        "surface-container-high": "#dde9ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-primary-container": "#eeefff",
+                        "background": "#f8f9ff",
+                        "secondary-container": "#fea619",
+                        "on-secondary-container": "#684000",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-surface": "#0d1c2f",
+                        "tertiary-fixed-dim": "#6bd8cb",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "surface-container": "#e6eeff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-highest": "#d5e3fd",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "tertiary": "#006058",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "outline": "#737686",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "tertiary-fixed": "#89f5e7",
+                        "inverse-on-surface": "#ebf1ff",
+                        "surface": "#f8f9ff",
+                        "primary": "#004ac6",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#007b71",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "on-tertiary-container": "#b3fff3",
+                        "on-background": "#0d1c2f",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-surface": "#233144",
+                        "secondary-fixed": "#ffddb8",
+                        "on-tertiary-fixed": "#00201d",
+                        "primary-container": "#2563eb",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift {
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(239,244,255,1) 100%);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c3c6d7; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<div class="p-2 hover:bg-blue-50 transition-colors rounded-xl active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-blue-700">grid_view</span>
+</div>
+<h1 class="text-lg font-bold text-slate-900 font-headline tracking-tight">Admin Panel</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="text-slate-500 hover:bg-blue-50 px-3 py-1 rounded-lg transition-colors font-['Manrope'] font-semibold tracking-tight" href="#">Dashboard</a>
+<a class="text-slate-500 hover:bg-blue-50 px-3 py-1 rounded-lg transition-colors font-['Manrope'] font-semibold tracking-tight" href="#">Vendors</a>
+<a class="text-slate-500 hover:bg-blue-50 px-3 py-1 rounded-lg transition-colors font-['Manrope'] font-semibold tracking-tight" href="#">Categories</a>
+<a class="text-blue-700 font-bold px-3 py-1 bg-blue-50/50 rounded-lg font-['Manrope'] tracking-tight" href="#">Bookings</a>
+</nav>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right mr-2 hidden sm:block">
+<p class="text-xs font-bold text-on-surface uppercase tracking-widest">Master Admin</p>
+<p class="text-[10px] text-outline">System Access</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold border-2 border-white shadow-sm overflow-hidden">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="professional headshot of a senior executive male in a dark suit with soft studio lighting and clean grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy6pimos1wHiSGHxI0PqWI0-xH0mAEfp9mXpra1BizbKnXWILhSE_PxF_KcVIicBPgnYy8mgjm-tHVhkw_axpdaOMPVZCcrUJ6SKo5sOOwQqwr8jpGUaX6WzlEA0HJwUXr0QIyMMqeAAvmtKOOnEHDNM5b-g4Q_zwsUDVVYUlsFZ1XbdI3jr95iE7cW4EQHKmPQJ4GZOhDXgcpV8xZIMK24XIy8P28mpaK68zaF9_wY-SrOYRbhVEJiRyyGrSDZKV6uPdgW3OKnw"/>
+</div>
+</div>
+</div>
+<div class="bg-slate-100 h-[1px] w-full"></div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Dashboard Header & Stats -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<span class="text-primary font-bold tracking-[0.2em] text-[10px] uppercase mb-2 block">Central Oversight</span>
+<h2 class="text-4xl font-extrabold font-headline tracking-tighter text-on-surface">Booking Management</h2>
+</div>
+<div class="flex flex-wrap gap-3">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider">Active Disputes</p>
+<p class="text-xl font-bold text-on-surface">14</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/10 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider">Revenue (24h)</p>
+<p class="text-xl font-bold text-on-surface">$12,480</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Advanced Filters -->
+<div class="bg-surface-container-low p-6 rounded-2xl flex flex-wrap items-center gap-6">
+<div class="flex-1 min-w-[240px]">
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase tracking-widest">Search Bookings</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-shadow" placeholder="ID, Customer or Vendor name..." type="text"/>
+</div>
+</div>
+<div class="min-w-[180px]">
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase tracking-widest">Booking Status</label>
+<select class="w-full bg-surface-container-lowest border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 cursor-pointer">
+<option>All Statuses</option>
+<option>Pending</option>
+<option>Completed</option>
+<option>Disputed</option>
+<option>Cancelled</option>
+</select>
+</div>
+<div class="min-w-[180px]">
+<label class="block text-xs font-bold text-on-surface-variant mb-2 uppercase tracking-widest">Date Range</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-primary/20" type="date"/>
+</div>
+</div>
+<div class="pt-6">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                        Apply Filters
+                    </button>
+</div>
+</div>
+</section>
+<!-- Booking List Content -->
+<section class="space-y-4">
+<!-- Table Header (Hidden on Mobile) -->
+<div class="hidden lg:grid grid-cols-12 gap-4 px-6 py-3 text-[10px] font-extrabold text-outline uppercase tracking-[0.15em]">
+<div class="col-span-1">ID</div>
+<div class="col-span-3">Customer &amp; Service</div>
+<div class="col-span-2">Vendor</div>
+<div class="col-span-2">Date &amp; Time</div>
+<div class="col-span-2 text-center">Status</div>
+<div class="col-span-1 text-right">Price</div>
+<div class="col-span-1"></div>
+</div>
+<!-- Booking Item 1: Disputed (High Priority) -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border-l-4 border-error hover:shadow-md transition-shadow">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+<div class="col-span-1 font-mono text-xs text-outline">#BK-9421</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-lg">plumbing</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Michael Thorne</p>
+<p class="text-xs text-on-surface-variant">Emergency Pipe Repair</p>
+</div>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-slate-200">
+<img alt="Vendor" class="w-full h-full object-cover" data-alt="close up of male plumber portrait with professional smile outdoors sunlit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1BDcSqMk5euzV9AfBx81gEh6bf5Yrv0doPUgZoOALk3U-wJxCCDpmCAI3DXbqf-WS7xDknBMH-j49LAqf9etKtmKKvhvR5q5ju_Rtt0lC9zoIYHt8R1Wy63BOfllfMfULHdi4M30RFCoQNOv6VMLKdvUrhkgh1DTdc5GFk06p7gQiMfyRhcsETePMjRr1q833wlCuC5Ol2vsRrl5aKmfyetmOiHMUtt6GQpd1HAQxztIFK5AdzW_dGYwIkFYQMVRa9RTMI3Ojcw"/>
+</div>
+<p class="text-sm font-medium text-on-surface-variant">Apex Plumbing</p>
+</div>
+</div>
+<div class="col-span-2 text-sm text-on-surface-variant">
+<p>Oct 24, 2023</p>
+<p class="text-[11px]">10:30 AM</p>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Disputed</span>
+</div>
+<div class="col-span-1 text-right font-bold text-primary">
+                        $245.00
+                    </div>
+<div class="col-span-1 flex justify-end">
+<button class="w-10 h-10 rounded-xl hover:bg-surface-container-low transition-colors flex items-center justify-center text-primary active:scale-90">
+<span class="material-symbols-outlined">edit_note</span>
+</button>
+</div>
+</div>
+<!-- Expansion Detail for Dispute -->
+<div class="mt-4 pt-4 border-t border-outline-variant/10 grid grid-cols-1 md:grid-cols-2 gap-6 bg-surface-container-low/30 p-4 rounded-xl">
+<div class="text-sm">
+<p class="font-bold text-error mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">warning</span> 
+                            Dispute Reason:
+                        </p>
+<p class="text-on-surface-variant">"Service not completed as described. Vendor left without fixing the main leak."</p>
+</div>
+<div class="flex justify-end items-center gap-3">
+<button class="text-[11px] font-bold text-primary border border-primary/20 px-4 py-2 rounded-lg hover:bg-white transition-colors">View Evidence</button>
+<button class="text-[11px] font-bold bg-primary text-on-primary px-4 py-2 rounded-lg shadow-sm active:scale-95 transition-transform">Update Status</button>
+</div>
+</div>
+</div>
+<!-- Booking Item 2: Completed -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+<div class="col-span-1 font-mono text-xs text-outline">#BK-9388</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-lg">spa</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Elena Rodriguez</p>
+<p class="text-xs text-on-surface-variant">Wellness Therapy Session</p>
+</div>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-slate-200">
+<img alt="Vendor" class="w-full h-full object-cover" data-alt="woman portrait in medical scrub with professional lighting against soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeyG5ak-chqaBqHNBAyuDduhQBHMycz10x4q-dLutrsL2nqcQTzFXJMGpxLVa5MaVmMvaeM9ywJdZpkFCNf4sV3bzI1TydsMzpf2p8qu8DBxSqBbQ_cNGu80ZsscfdCv7jIPmh-N0_wdgXfuszvZAgaHJgiC5uPDLiyVLJEdFefmyW_hCND6cyisd53arqkD_acgiNbN_cSXcySOkToJZJFmPTxn57o1_Uk6ag7WAKUTPvk2LKIESJ7pBsrsqQXF77aklNQynKZQ"/>
+</div>
+<p class="text-sm font-medium text-on-surface-variant">Zen Flow Studio</p>
+</div>
+</div>
+<div class="col-span-2 text-sm text-on-surface-variant">
+<p>Oct 23, 2023</p>
+<p class="text-[11px]">02:00 PM</p>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Completed</span>
+</div>
+<div class="col-span-1 text-right font-bold text-primary">
+                        $110.00
+                    </div>
+<div class="col-span-1 flex justify-end">
+<button class="w-10 h-10 rounded-xl hover:bg-surface-container-low transition-colors flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Booking Item 3: Pending -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+<div class="col-span-1 font-mono text-xs text-outline">#BK-9445</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-lg">cleaning_services</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant">Post-Move Deep Clean</p>
+</div>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-slate-200">
+<img alt="Vendor" class="w-full h-full object-cover" data-alt="portrait of a cleaning professional in uniform with a bright confident smile indoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSu9_ywiGBsR9-Y6jqUZ4IphiyJ8Voi672LoVidkCLyuTUzBxj_Wv2joMGnGWsO-gUvRIkn6xhrxganARQ44UJ9ycOXjx_HwdwxIFYuVQPJsqqMxtqe72htdDcWJM4PzelQGIDOAofDO8z6NqPbNcySz4I1oSmlYR8rNyRVpx8bpSElxm0TKHlW8-V4eUBs-yRgoT_-gzJZRsyFA9U6yD8BgxsG9MrQx4z0p-MDCkXAUNiLeb6mDpZIYR6dIJiJ5HA1w1FB_u1bw"/>
+</div>
+<p class="text-sm font-medium text-on-surface-variant">Swift Scrub Co.</p>
+</div>
+</div>
+<div class="col-span-2 text-sm text-on-surface-variant">
+<p>Oct 25, 2023</p>
+<p class="text-[11px]">09:00 AM</p>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</div>
+<div class="col-span-1 text-right font-bold text-primary">
+                        $180.00
+                    </div>
+<div class="col-span-1 flex justify-end">
+<button class="w-10 h-10 rounded-xl hover:bg-surface-container-low transition-colors flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Booking Item 4: Cancelled -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-sm opacity-70 hover:opacity-100 transition-opacity">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+<div class="col-span-1 font-mono text-xs text-outline">#BK-9210</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline text-lg">pest_control</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">David Chen</p>
+<p class="text-xs text-on-surface-variant">Quarterly Pest Control</p>
+</div>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-slate-200 grayscale">
+<img alt="Vendor" class="w-full h-full object-cover" data-alt="professional male portrait with neutral background and soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuWC3jOf8CSxo8u2c17S8nxWCwXdjiKAQYrbYEN8i8i0DkKCS-6sLYLvA4lQ1K4dk-g1YAeZvaf9ossHo6gZnojG7FkoveMXZfs1Muf7c8EYTVEnCnNrYSmaf3eaLTlfveddhlzxBJwRYZXYTgrr8D7G6itobn4pm2uUScQeswIN4VW9ZCtaLpT2Is1A6dM3JR96yZzxhfGq7t-fZPp9DdHhI9QD9NasTyLj7eBe_gQ8rkdnxmnUEGhIHZItqxmW9GOPJ-Xgg8eA"/>
+</div>
+<p class="text-sm font-medium text-on-surface-variant">EcoGuard Services</p>
+</div>
+</div>
+<div class="col-span-2 text-sm text-on-surface-variant">
+<p>Oct 21, 2023</p>
+<p class="text-[11px]">11:00 AM</p>
+</div>
+<div class="col-span-2 flex justify-center">
+<span class="bg-surface-variant text-outline px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Cancelled</span>
+</div>
+<div class="col-span-1 text-right font-bold text-outline line-through">
+                        $95.00
+                    </div>
+<div class="col-span-1 flex justify-end">
+<button class="w-10 h-10 rounded-xl hover:bg-surface-container-low transition-colors flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Pagination -->
+<div class="mt-12 flex items-center justify-center gap-2">
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-outline hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-xl bg-primary text-on-primary font-bold text-sm shadow-sm">1</button>
+<button class="w-10 h-10 rounded-xl text-on-surface-variant font-bold text-sm hover:bg-surface-container-low transition-colors">2</button>
+<button class="w-10 h-10 rounded-xl text-on-surface-variant font-bold text-sm hover:bg-surface-container-low transition-colors">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-10 h-10 rounded-xl text-on-surface-variant font-bold text-sm hover:bg-surface-container-low transition-colors">12</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center text-outline hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- FAB for Global System Notification/Alert -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-2xl shadow-xl flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_moderator</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-white dark:bg-slate-900 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] border-t border-slate-100 dark:border-slate-800">
+<div class="flex justify-around items-center h-20 px-4 pb-safe w-full">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-600 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-600 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Vendors</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-600 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">category</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Categories</span>
+</div>
+<div class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-4 py-1 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Bookings</span>
+</div>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vendor Management | Admin Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#855300",
+              "on-primary-fixed": "#00174b",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-low": "#eff4ff",
+              "surface-variant": "#d5e3fd",
+              "surface-tint": "#0053db",
+              "surface-dim": "#ccdbf4",
+              "surface-container-high": "#dde9ff",
+              "primary-fixed-dim": "#b4c5ff",
+              "on-primary-container": "#eeefff",
+              "background": "#f8f9ff",
+              "secondary-container": "#fea619",
+              "on-secondary-container": "#684000",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#2a1700",
+              "on-surface": "#0d1c2f",
+              "tertiary-fixed-dim": "#6bd8cb",
+              "on-tertiary-fixed-variant": "#005049",
+              "surface-container": "#e6eeff",
+              "surface-bright": "#f8f9ff",
+              "surface-container-highest": "#d5e3fd",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#c3c6d7",
+              "tertiary": "#006058",
+              "on-primary-fixed-variant": "#003ea8",
+              "outline": "#737686",
+              "on-secondary-fixed-variant": "#653e00",
+              "tertiary-fixed": "#89f5e7",
+              "inverse-on-surface": "#ebf1ff",
+              "surface": "#f8f9ff",
+              "primary": "#004ac6",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#007b71",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-tertiary-container": "#b3fff3",
+              "on-background": "#0d1c2f",
+              "primary-fixed": "#dbe1ff",
+              "inverse-surface": "#233144",
+              "secondary-fixed": "#ffddb8",
+              "on-tertiary-fixed": "#00201d",
+              "primary-container": "#2563eb",
+              "on-surface-variant": "#434655",
+              "on-error": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center justify-between px-6 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">grid_view</span>
+<h1 class="font-['Manrope'] font-semibold tracking-tight text-lg font-bold text-slate-900 dark:text-slate-50">Admin Panel</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">notifications</span>
+</button>
+<div class="flex items-center gap-2 px-2 py-1 rounded-full border border-outline-variant/20">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-[10px] text-white font-bold overflow-hidden">
+<img alt="Admin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfnxasH7ED_BHlVIPSnZEOevfaeagHH9TGi15-qbo9bCCE6pTODv68lmhNlok9YNHViDJAflSYvGqMukykiwN0gz4XTzZVRM-cHAu0y2id-7hk5w0epa5GLFQWGxzvUJwIAXUbfAHXel-aRzitI1MDs6hy7UtO0ZKMRi-cb_6s2CCgJUP4AFte-z-c-akyRlTCAu5ifeV91B9qXUgy33LSzQhKxSphnZNv911uUAUcXU-S59PDO1vyApV0tV1-8p8zqbirNnR2Hg"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 h-[1px] w-full"></div>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-24 pb-12">
+<!-- Dashboard Header & Search -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-2">Vendors Approval</h2>
+<p class="text-on-surface-variant font-medium">Manage and verify service professional applications.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+<div class="relative group flex-1 sm:w-80">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest rounded-xl border-none ring-1 ring-outline-variant/20 focus:ring-2 focus:ring-primary outline-none transition-all font-body text-sm shadow-sm" placeholder="Search by name or email..." type="text"/>
+</div>
+<button class="bg-surface-container-high px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 text-on-surface hover:bg-surface-dim transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+<span>Sort</span>
+</button>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-3 mb-10 overflow-x-auto no-scrollbar pb-2">
+<button class="px-6 py-2 rounded-full bg-blue-50/50 text-blue-700 font-bold border border-primary/20 shadow-sm whitespace-nowrap">Pending Approval (12)</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-lowest text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors border border-outline-variant/10 whitespace-nowrap">Verified</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-lowest text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors border border-outline-variant/10 whitespace-nowrap">Flagged</button>
+</div>
+<!-- Bento Grid Layout for Vendors -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Vendor Card 1 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(13,28,47,0.04)] border border-outline-variant/10 flex flex-col sm:flex-row group hover:shadow-lg transition-all duration-300">
+<div class="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern high-end interior designer workshop with architectural plans and material samples on a large wooden desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAognXqRecHu8sVOGAAGEnUcb9qVNfIVcD38yrDvtQisRQQxVn8qug3H6XMxHnntb3r-mlPK_Wj1YNcoB9zsXAl2ZhoUCsfHcnZ2-1xbVFOdUKYuSDkKgX8DFnLNbRLmkW0KE6JhP7fKY6kE9o7Mtkb0gVjmONAxVn-i845Mi82h4eiFE0TK-ztBj0ytgGPl8XTYrG5ev9JtE7GL3Hk-8toj3kIkvJI6siO4odX7XqLG6Drq2ZHvJh8j4Mr7UckotAmqsVvS2hAWQ"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">star</span>
+<span class="text-[11px] font-bold tracking-wider uppercase text-on-surface">New</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline text-xl font-bold text-on-surface">Luxe Interiors Studio</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary cursor-pointer">more_horiz</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container-high text-primary text-[10px] font-bold uppercase tracking-widest rounded">Interior Design</span>
+<span class="text-on-surface-variant text-[12px] font-medium">• 8 Years Exp.</span>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Identity Verification</span>
+<span class="text-tertiary flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verified</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Business License</span>
+<span class="text-secondary flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">pending</span> Reviewing</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">Approve</button>
+<button class="flex-1 py-3 bg-error-container text-on-error-container rounded-xl font-bold text-sm hover:bg-error/10 active:scale-95 transition-all">Reject</button>
+</div>
+</div>
+</div>
+<!-- Vendor Card 2 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(13,28,47,0.04)] border border-outline-variant/10 flex flex-col sm:flex-row group hover:shadow-lg transition-all duration-300">
+<div class="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Professional cleaning service equipment arranged neatly on a polished white floor in a bright minimalist office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtCps2_p4gognshESE_A6aR9_acJmltZGZ1VqLYJmqX1LuSf6gxANs6Vt6D66QUGwrfVz5RHJctHotQdJja4KEiZEQuBjWnTZNMpvb7w71mOXfAx4wXJ_dDiOX2aQ_UJhmNoLSfEkraeGh4pGNsWGDakgvkelf1DgfLFpLssZoCwizyUg5RUnpjuk3GG0EWfXdFS0iwyNLOFseUEyWxh-vhjl-gA3xovt3SBkbcmhFYbGt__DAa0aYQ9_nZclEspgMVvDITk0sSA"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-tertiary">verified_user</span>
+<span class="text-[11px] font-bold tracking-wider uppercase text-on-surface">Top Tier</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline text-xl font-bold text-on-surface">EcoPure Solutions</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary cursor-pointer">more_horiz</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container-high text-primary text-[10px] font-bold uppercase tracking-widest rounded">HVAC &amp; Cleaning</span>
+<span class="text-on-surface-variant text-[12px] font-medium">• 12 Years Exp.</span>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Tax Identification</span>
+<span class="text-tertiary flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verified</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Liability Insurance</span>
+<span class="text-tertiary flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verified</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">Approve</button>
+<button class="flex-1 py-3 bg-error-container text-on-error-container rounded-xl font-bold text-sm hover:bg-error/10 active:scale-95 transition-all">Reject</button>
+</div>
+</div>
+</div>
+<!-- Vendor Card 3 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(13,28,47,0.04)] border border-outline-variant/10 flex flex-col sm:flex-row group hover:shadow-lg transition-all duration-300">
+<div class="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Skilled master plumber working on high-end chrome bathroom fixtures with precision tools in a modern luxury home" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY9KGA9UiFEASuv93YCF4FMbBMghqdBapBVBvxpuL98Xcn2jnet4rZdgdi8DTBDaCtvCIs84qEBP17ykOFP7s-03yKEa3FBRgDLlpjrzK7y8cBAk_ItnhRG9g77ZEf6h8qYwVNWXygv1mSt8WayRx-jI_hfNfKZ7FvLGr_GK7w9O8Hp9jafGhInBjNe-BQaiNAUNPgK3tnCrxIJl5_3doAhswwcg7H4_h8wLLf-36nAD38RG0_N-3IdHho39Wmhs253vMq1zv8iA"/>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline text-xl font-bold text-on-surface">Urban Pipe Masters</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary cursor-pointer">more_horiz</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container-high text-primary text-[10px] font-bold uppercase tracking-widest rounded">Plumbing</span>
+<span class="text-on-surface-variant text-[12px] font-medium">• 5 Years Exp.</span>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Identity Verification</span>
+<span class="text-error flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">cancel</span> Rejected</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Work Portfolio</span>
+<span class="text-tertiary flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verified</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">Approve</button>
+<button class="flex-1 py-3 bg-error-container text-on-error-container rounded-xl font-bold text-sm hover:bg-error/10 active:scale-95 transition-all">Reject</button>
+</div>
+</div>
+</div>
+<!-- Vendor Card 4 -->
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(13,28,47,0.04)] border border-outline-variant/10 flex flex-col sm:flex-row group hover:shadow-lg transition-all duration-300">
+<div class="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up of hands installing a smart home security system panel on a clean gray wall with architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxdqx16ZdaEHC_XlzzvMfZJF0gFnRZ_lZIqcmuMOvpLxr-hA9S6WU0m82b3tHmeyq7cIHlQkhjZUldqqrcgjSqG7Ko4v-IX_HqGHhJ_S_nW-iNreB1WOBM_1B2qkdN5SeBXOZi9VBNEO4Eb13YBcoBV3xUbFL46GByC6SsGk60wJ5QcKAzZGQ7vJDVsufmBQoiCye58Ms0EPhilQJo3YbcN_TE-wdrl6LawQX3SoIiWhG-RF9BHiOug1B39jujSYQFz61gD461_A"/>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline text-xl font-bold text-on-surface">SecureHome Systems</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary cursor-pointer">more_horiz</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container-high text-primary text-[10px] font-bold uppercase tracking-widest rounded">Security</span>
+<span class="text-on-surface-variant text-[12px] font-medium">• 15 Years Exp.</span>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Certifications</span>
+<span class="text-secondary flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">pending</span> Reviewing</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-on-surface-variant">Background Check</span>
+<span class="text-tertiary flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[16px]">check_circle</span> Cleared</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 mt-auto">
+<button class="flex-1 py-3 bg-primary text-white rounded-xl font-bold text-sm shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all">Approve</button>
+<button class="flex-1 py-3 bg-error-container text-on-error-container rounded-xl font-bold text-sm hover:bg-error/10 active:scale-95 transition-all">Reject</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination / Load More -->
+<div class="mt-16 flex justify-center">
+<button class="px-10 py-4 bg-white border border-outline-variant/30 text-on-surface font-bold rounded-2xl hover:bg-surface-container-low transition-all shadow-sm active:scale-95">
+                Load More Applications
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 bg-white dark:bg-slate-900 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] border-t border-slate-100 dark:border-slate-800 md:hidden">
+<div class="flex justify-around items-center h-20 px-4 pb-safe w-full">
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-600 dark:hover:text-blue-300 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-4 py-1 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Vendors</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-600 dark:hover:text-blue-300 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">category</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Categories</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-1 hover:text-blue-600 dark:hover:text-blue-300 active:scale-90 transition-transform cursor-pointer">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-['Inter'] text-[11px] font-medium uppercase tracking-wider mt-1">Bookings</span>
+</div>
+</div>
+</nav>
+<!-- Floating Action Button (Optional Contextual) -->
+<button class="fixed bottom-24 right-8 w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all z-40 md:bottom-8">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+</body></html>

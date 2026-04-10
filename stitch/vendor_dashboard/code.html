@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Business Dashboard | Service Marketplace</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#ffffff",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface-container-low": "#eff4ff",
+              "surface-bright": "#f8f9ff",
+              "on-tertiary-container": "#b3fff3",
+              "secondary": "#855300",
+              "on-surface-variant": "#434655",
+              "on-secondary-container": "#684000",
+              "error-container": "#ffdad6",
+              "primary-fixed": "#dbe1ff",
+              "primary-container": "#2563eb",
+              "on-surface": "#0d1c2f",
+              "on-primary-container": "#eeefff",
+              "primary": "#004ac6",
+              "on-secondary-fixed": "#2a1700",
+              "error": "#ba1a1a",
+              "surface": "#f8f9ff",
+              "secondary-fixed": "#ffddb8",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#ffb95f",
+              "on-secondary": "#ffffff",
+              "tertiary": "#006058",
+              "on-primary-fixed": "#00174b",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-high": "#dde9ff",
+              "inverse-surface": "#233144",
+              "background": "#f8f9ff",
+              "surface-container-highest": "#d5e3fd",
+              "surface-tint": "#0053db",
+              "on-tertiary-fixed": "#00201d",
+              "on-tertiary-fixed-variant": "#005049",
+              "on-primary-fixed-variant": "#003ea8",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#653e00",
+              "secondary-container": "#fea619",
+              "inverse-on-surface": "#ebf1ff",
+              "tertiary-container": "#007b71",
+              "outline": "#737686",
+              "outline-variant": "#c3c6d7",
+              "surface-dim": "#ccdbf4",
+              "surface-container": "#e6eeff",
+              "surface-variant": "#d5e3fd",
+              "tertiary-fixed-dim": "#6bd8cb",
+              "on-background": "#0d1c2f",
+              "tertiary-fixed": "#89f5e7",
+              "on-tertiary": "#ffffff",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 32px 64px rgba(13, 28, 47, 0.04);
+        }
+        .asymmetric-image {
+            transform: translate(12px, -12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-none">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Vendor Business Logo" data-alt="Modern minimalist logo of a professional service business on a clean architectural background with soft blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb4QoYCezzr4QMPUJCr-3fPD_oZvVpShWL1HwGs30-R_wCIPk5WOkZj6EZXfr90Yc4-Po2l7cZyXKCUvsrjXot_LRTAuxloEqRdp-RPzWEnq99unfqlzey-_ImKNWdxG8U93rbUJU8GC6JjqlJKJ6vGA-jx53yrpdgHnh8QNdsfOcCVdFvYBDltVIMokZIsCii1bROAW6t2YT7FTwKVN4PEz6FxYmS9ZiYLCOI1B8x4Br2I5gRXSeGR-WNGLy7totbXbBWXzBj0g"/>
+</div>
+<span class="text-xl font-extrabold tracking-tight text-[#0d1c2f] dark:text-slate-50 font-headline">Business Dashboard</span>
+</div>
+<!-- Desktop Nav Cluster -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#004ac6] dark:text-blue-400 font-bold transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-lg transition-colors duration-200" href="#">Bookings</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-lg transition-colors duration-200" href="#">Services</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 px-3 py-2 rounded-lg transition-colors duration-200" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Hero Welcome -->
+<section class="mb-12">
+<h1 class="text-4xl md:text-5xl font-headline font-extrabold tracking-tight text-on-surface mb-2">Welcome back, Elite Services.</h1>
+<p class="text-on-surface-variant text-lg">Here is what’s happening with your business today.</p>
+</section>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<!-- Today's Bookings -->
+<div class="bg-surface-container-lowest p-8 rounded-xl editorial-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+<p class="font-label text-xs uppercase tracking-[0.05em] text-on-surface-variant mb-4">Today's Bookings</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-headline font-extrabold text-primary">12</span>
+<span class="text-tertiary font-bold text-sm">+2 from yesterday</span>
+</div>
+</div>
+<!-- Total Earnings -->
+<div class="bg-surface-container-lowest p-8 rounded-xl editorial-shadow relative overflow-hidden group border-none">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<p class="font-label text-xs uppercase tracking-[0.05em] text-on-surface-variant mb-4">Total Earnings</p>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-headline font-extrabold text-on-surface">$4,850</span>
+<span class="text-on-surface-variant font-medium text-sm">This month</span>
+</div>
+</div>
+<!-- Average Rating -->
+<div class="bg-surface-container-lowest p-8 rounded-xl editorial-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-label text-xs uppercase tracking-[0.05em] text-on-surface-variant mb-4">Average Rating</p>
+<div class="flex items-center gap-3">
+<span class="text-5xl font-headline font-extrabold text-on-surface">4.8</span>
+<div class="flex flex-col">
+<div class="flex text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<span class="text-on-surface-variant text-xs font-medium">124 Reviews</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Content Section with Asymmetric Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Upcoming Bookings -->
+<div class="lg:col-span-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-headline font-bold text-on-surface">Upcoming Bookings</h2>
+<button class="text-primary font-semibold hover:underline text-sm">View Schedule</button>
+</div>
+<div class="space-y-6">
+<!-- Booking Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6 hover:translate-y-[-2px] transition-transform editorial-shadow">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">ac_unit</span>
+</div>
+<div>
+<h3 class="font-bold text-lg text-on-surface">Marcus Thorne</h3>
+<p class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">handyman</span> AC Repair &amp; Optimization
+                                </p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right hidden md:block">
+<p class="font-bold text-on-surface">10:30 AM</p>
+<p class="text-on-surface-variant text-xs uppercase tracking-wider font-label">Today</p>
+</div>
+<span class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-primary-fixed text-on-primary-fixed">Accepted</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">more_vert</button>
+</div>
+</div>
+<!-- Booking Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6 hover:translate-y-[-2px] transition-transform editorial-shadow">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-2xl">sanitizer</span>
+</div>
+<div>
+<h3 class="font-bold text-lg text-on-surface">Elena Rodriguez</h3>
+<p class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">handyman</span> Deep Home Sanitization
+                                </p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right hidden md:block">
+<p class="font-bold text-on-surface">02:00 PM</p>
+<p class="text-on-surface-variant text-xs uppercase tracking-wider font-label">Today</p>
+</div>
+<span class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-secondary-fixed text-on-secondary-fixed">Pending</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">more_vert</button>
+</div>
+</div>
+<!-- Booking Card 3 -->
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-6 hover:translate-y-[-2px] transition-transform">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-white flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">bolt</span>
+</div>
+<div>
+<h3 class="font-bold text-lg text-on-surface">Julian Vane</h3>
+<p class="text-on-surface-variant text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">handyman</span> Electrical Safety Audit
+                                </p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right hidden md:block">
+<p class="font-bold text-on-surface">09:00 AM</p>
+<p class="text-on-surface-variant text-xs uppercase tracking-wider font-label">Tomorrow</p>
+</div>
+<span class="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-primary-fixed text-on-primary-fixed">Accepted</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">more_vert</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Featured Promotion / Business Tip -->
+<div class="lg:col-span-4 space-y-8">
+<div class="bg-primary p-8 rounded-2xl text-on-primary relative overflow-hidden group">
+<!-- Glass Texture Overlay -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container/40 to-transparent opacity-50"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl mb-6">insights</span>
+<h3 class="text-2xl font-headline font-bold mb-4 leading-tight">Maximize your summer revenue.</h3>
+<p class="text-on-primary-container/90 mb-8 leading-relaxed">Vendors offering AC Maintenance in your area are seeing a 40% increase in bookings this week.</p>
+<button class="bg-white text-primary px-6 py-3 rounded-md font-bold text-sm transition-transform hover:scale-105 active:scale-95">Update Services</button>
+</div>
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-container/20 rounded-full blur-3xl"></div>
+</div>
+<!-- Asymmetric Design Element -->
+<div class="relative pt-6">
+<div class="bg-surface-container-highest p-6 rounded-xl">
+<div class="asymmetric-image w-full h-48 rounded-lg overflow-hidden mb-4">
+<img alt="Service Professional" class="w-full h-full object-cover" data-alt="Close-up of a skilled service professional in a clean uniform using high-tech tools in a bright modern workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBACh2pdLZ1R2efqH1eKfgcTOIIKWYh7FQ8QKzdu8UqbNKOItD85CfRO-eFS7aDtPcmKeMbTAkbcOG7V3xg7LLL2POveB0IzxCQJEDI_hB5Ng35X9hSFAQit-gw9L2lIlswC7XEMXIfPxWN3_Cd7dYOJ1778lrFCqr-qVOrXs3WzwmTGCCs2pOtjMva_qEUA6oqLhyRSBt8Y1Pa6JvhSxhlxl0X0g3VddvePmxpKnUm8Z29-aETbBarOo5tRybWmdIfe0lxP8BOg"/>
+</div>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Editorial Tip</p>
+<h4 class="font-bold text-on-surface mb-2">Professional Lighting Matters</h4>
+<p class="text-on-surface-variant text-sm mb-4">High-quality photos of your completed work can increase booking conversion by up to 25%.</p>
+<a class="text-primary text-xs font-bold uppercase tracking-wider hover:underline" href="#">Read the Guide</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-slate-950 flex justify-around items-center px-4 pb-6 pt-2 shadow-[0_-8px_30px_rgb(0,0,0,0.04)] rounded-t-2xl z-50">
+<a class="flex flex-col items-center justify-center bg-[#eff4ff] dark:bg-blue-900/40 text-[#004ac6] dark:text-blue-200 rounded-xl px-4 py-1.5 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="text-[10px] font-label mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-[10px] font-label mt-1">Bookings</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">handyman</span>
+<span class="text-[10px] font-label mt-1">Services</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-label mt-1">Profile</span>
+</a>
+</nav>
+<!-- FAB (Contextual for Dashboard) -->
+<button class="fixed bottom-24 right-6 md:bottom-12 md:right-12 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center editorial-shadow z-40 transition-transform hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+</body></html>
