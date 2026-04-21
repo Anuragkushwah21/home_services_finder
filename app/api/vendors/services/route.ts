@@ -1,3 +1,4 @@
+// app/api/vendors/services/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Service from '@/lib/models/Service';
@@ -5,9 +6,9 @@ import Vendor from '@/lib/models/Vendor';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions as any);
 
     if (!session || !session.user || (session.user as any).role !== 'vendor') {
       return NextResponse.json(
@@ -40,7 +41,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
@@ -49,7 +51,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions as any);
 
     if (!session || !session.user || (session.user as any).role !== 'vendor') {
       return NextResponse.json(
@@ -70,7 +72,14 @@ export async function POST(req: NextRequest) {
     } = await req.json();
 
     // Validation
-    if (!categoryId || !name || !description || !serviceType || !basePrice || !durationMinutes) {
+    if (
+      !categoryId ||
+      !name ||
+      !description ||
+      !serviceType ||
+      !basePrice ||
+      !durationMinutes
+    ) {
       return NextResponse.json(
         { success: false, error: 'All fields are required' },
         { status: 400 }
@@ -122,7 +131,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );

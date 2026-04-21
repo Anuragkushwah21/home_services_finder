@@ -1,13 +1,12 @@
 // lib/auth.ts
-import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { connectDB } from '@/lib/db';
 import User from '@/lib/models/User';
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt' as const,
   },
   providers: [
     CredentialsProvider({
@@ -64,13 +63,11 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/login',
-    // error: '/auth/error', // agar custom error page use karna ho to
   },
   callbacks: {
-    // OPTIONAL: signIn callback (agar extra safety chahiye)
-    async signIn({ user }) {
+    async signIn({ user }: { user?: any }) {
       await connectDB();
-      const dbUser = await User.findOne({ email: user?.email }).lean();
+      const dbUser = (await User.findOne({ email: user?.email }).lean()) as any;
 
       if (!dbUser) {
         throw new Error('Invalid email or password');
@@ -85,7 +82,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
 
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
         token.id = (user as any).id;
         token.role = (user as any).role;
@@ -95,7 +92,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (session.user) {
         (session.user as any).id = token.id;
         (session.user as any).role = token.role;

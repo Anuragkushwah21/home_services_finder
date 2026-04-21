@@ -9,16 +9,16 @@ import { authOptions } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions as any);
 
-    if (!session || !session.user) {
+    if (!session || !(session as any).user) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
         { status: 401 }
       );
     }
 
-    const userId = (session.user as any).id;
+    const userId = (session as any).user.id;
 
     const {
       businessName,
@@ -76,19 +76,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
   }
 }
 
+// GET same as before, but with (session as any).user or optional chaining
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions as any);
 
     // Only admins allowed
-    if (!session || (session.user as any)?.role !== 'admin') {
+    if (!session || (session as any).user?.role !== 'admin') {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },
         { status: 401 }
@@ -103,7 +105,7 @@ export async function GET(req: NextRequest) {
     // 1) Find all users with role "vendor"
     const vendorUsers = await User.find({ role: 'vendor' }, '_id').lean();
     const vendorUserIds = vendorUsers.map((u) => u._id);
-    console.log('vendor user', vendorUserIds)
+    console.log('vendor user', vendorUserIds);
 
     // 2) Build vendor filter
     const filter: any = { userId: { $in: vendorUserIds } };
@@ -125,10 +127,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
   }
 }
-

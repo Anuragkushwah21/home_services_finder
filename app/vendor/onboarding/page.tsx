@@ -8,7 +8,6 @@ import { CheckCircle, Clock, FileText, ShoppingCart } from 'lucide-react';
 
 export default function VendorOnboarding() {
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState<any>(null);
   const [vendorProfile, setVendorProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +24,6 @@ export default function VendorOnboarding() {
       return;
     }
 
-    setCurrentUser(userData);
     checkVendorProfile(userData);
   }, [router]);
 
@@ -95,20 +93,23 @@ export default function VendorOnboarding() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="mb-12">
-            <h1 className="text-5xl font-display font-bold mb-4">Welcome to Your Vendor Dashboard</h1>
+            <h1 className="text-5xl font-display font-bold mb-4">
+              Welcome to Your Vendor Dashboard
+            </h1>
             <p className="text-xl text-gray-600">
-              Let's get you set up to start receiving bookings
+              Let&apos;s get you set up to start receiving bookings
             </p>
           </div>
 
           <div className="grid gap-6">
             {steps.map((step) => {
-              const Icon = step.icon;
               return (
                 <div
                   key={step.number}
                   className={`card p-6 border-l-4 ${
-                    step.completed ? 'border-l-green-500 bg-green-50' : 'border-l-primary'
+                    step.completed
+                      ? 'border-l-green-500 bg-green-50'
+                      : 'border-l-primary'
                   }`}
                 >
                   <div className="flex items-start gap-6">
@@ -117,7 +118,11 @@ export default function VendorOnboarding() {
                         step.completed ? 'bg-green-500' : 'bg-primary'
                       }`}
                     >
-                      {step.completed ? <CheckCircle className="w-6 h-6" /> : step.number}
+                      {step.completed ? (
+                        <CheckCircle className="w-6 h-6" />
+                      ) : (
+                        step.number
+                      )}
                     </div>
 
                     <div className="flex-grow">
@@ -159,11 +164,17 @@ export default function VendorOnboarding() {
               <div className="flex gap-4 items-start">
                 <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-bold text-green-900 mb-2">Ready to Go Live!</h3>
+                  <h3 className="font-bold text-green-900 mb-2">
+                    Ready to Go Live!
+                  </h3>
                   <p className="text-green-800 mb-4">
-                    Your profile is complete. Now add some services and start accepting bookings.
+                    Your profile is complete. Now add some services and start
+                    accepting bookings.
                   </p>
-                  <Link href="/vendor/services" className="text-green-700 font-bold underline">
+                  <Link
+                    href="/vendor/services"
+                    className="text-green-700 font-bold underline"
+                  >
                     Add Your First Service →
                   </Link>
                 </div>

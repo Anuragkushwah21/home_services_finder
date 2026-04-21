@@ -81,14 +81,15 @@ export async function PUT(req: NextRequest, context: RouteContext) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(req: NextRequest, context: RouteContext) {
+export async function DELETE(_req: NextRequest, context: RouteContext) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -140,7 +141,8 @@ export async function DELETE(req: NextRequest, context: RouteContext) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );

@@ -1,3 +1,4 @@
+// app/api/categories/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Category from '@/lib/models/Category';
@@ -6,7 +7,7 @@ interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
-export async function GET(req: NextRequest, context: RouteContext) {
+export async function GET(_req: NextRequest, context: RouteContext) {
   try {
     const { id } = await context.params;
 
@@ -29,7 +30,8 @@ export async function GET(req: NextRequest, context: RouteContext) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
@@ -69,14 +71,15 @@ export async function PATCH(req: NextRequest, context: RouteContext) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(req: NextRequest, context: RouteContext) {
+export async function DELETE(_req: NextRequest, context: RouteContext) {
   try {
     const { id } = await context.params;
 
@@ -99,7 +102,8 @@ export async function DELETE(req: NextRequest, context: RouteContext) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );

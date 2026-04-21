@@ -1,8 +1,9 @@
+// app/api/categories/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Category from '@/lib/models/Category';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     await connectDB();
 
@@ -16,7 +17,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
@@ -64,7 +66,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );

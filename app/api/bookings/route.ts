@@ -1,3 +1,4 @@
+// app/api/bookings/me/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Booking from '@/lib/models/Booking';
@@ -35,7 +36,10 @@ export async function POST(req: NextRequest) {
 
     if (bookingType === 'home' && !address) {
       return NextResponse.json(
-        { success: false, error: 'Address required for home service' },
+        {
+          success: false,
+          error: 'Address required for home service',
+        },
         { status: 400 }
       );
     }
@@ -79,14 +83,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 
@@ -112,7 +117,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );

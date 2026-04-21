@@ -1,4 +1,3 @@
-
 // app/api/admin/users/[id]/route.ts
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
@@ -11,10 +10,8 @@ interface RouteContext {
 }
 
 export async function PATCH(req: NextRequest, context: RouteContext) {
-  
-  const session = await getServerSession(authOptions);
   try {
-    
+    const session = await getServerSession(authOptions);
 
     if (!session || (session.user as any)?.role !== 'admin') {
       return NextResponse.json(
@@ -23,7 +20,7 @@ export async function PATCH(req: NextRequest, context: RouteContext) {
       );
     }
 
-    const { id } = await context.params; // ✅ await params
+    const { id } = await context.params;
 
     const { role, isActive } = (await req.json()) as {
       role?: 'user' | 'vendor' | 'admin';
@@ -73,7 +70,7 @@ export async function PATCH(req: NextRequest, context: RouteContext) {
 }
 
 // GET: single user (admin only, optional)
-export async function GET(req: NextRequest, context: RouteContext) {
+export async function GET(_req: NextRequest, context: RouteContext) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -84,7 +81,7 @@ export async function GET(req: NextRequest, context: RouteContext) {
       );
     }
 
-    const { id } = await context.params; // ✅ await params
+    const { id } = await context.params;
 
     await connectDB();
 

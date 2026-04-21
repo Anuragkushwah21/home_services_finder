@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useSession, signIn } from 'next-auth/react';
 import Header from '@/components/shared/Header';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
@@ -33,7 +33,7 @@ interface Booking {
 }
 
 export default function BookingsPage() {
-  const router = useRouter();
+  // const router = useRouter();
   const { data: session, status } = useSession();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -162,21 +162,27 @@ export default function BookingsPage() {
 
         {/* Status Filter */}
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
-          {['all', 'pending', 'accepted', 'in_progress', 'completed', 'cancelled'].map(
-            (status) => (
-              <button
-                key={status}
-                onClick={() => setFilterStatus(status)}
-                className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
-                  filterStatus === status
-                    ? 'btn btn-primary'
-                    : 'btn btn-secondary'
-                }`}
-              >
-                {status.charAt(0).toUpperCase() + status.slice(1).replace('_', ' ')}
-              </button>
-            )
-          )}
+          {[
+            'all',
+            'pending',
+            'accepted',
+            'in_progress',
+            'completed',
+            'cancelled',
+          ].map((status) => (
+            <button
+              key={status}
+              onClick={() => setFilterStatus(status)}
+              className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
+                filterStatus === status
+                  ? 'btn btn-primary'
+                  : 'btn btn-secondary'
+              }`}
+            >
+              {status.charAt(0).toUpperCase() +
+                status.slice(1).replace('_', ' ')}
+            </button>
+          ))}
         </div>
 
         {error && (
@@ -239,7 +245,9 @@ export default function BookingsPage() {
                     <div className="flex items-start gap-3 md:col-span-2">
                       <MapPin className="w-4 h-4 text-gray-400 mt-1" />
                       <div>
-                        <p className="text-xs text-gray-600">Service Address</p>
+                        <p className="text-xs text-gray-600">
+                          Service Address
+                        </p>
                         <p className="font-medium">
                           {booking.address?.addressLine}
                         </p>

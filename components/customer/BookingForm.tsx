@@ -62,7 +62,10 @@ export default function BookingForm({
           bookingType,
           bookingDate,
           bookingTime,
-          address: bookingType === 'home' ? { addressLine: address, city: vendorCity } : undefined,
+          address:
+            bookingType === 'home'
+              ? { addressLine: address, city: vendorCity }
+              : undefined,
           notes,
         }),
       });
@@ -72,7 +75,7 @@ export default function BookingForm({
         throw new Error(data.error || 'Failed to create booking');
       }
 
-      const data = await response.json();
+      // Success case: body ignore kar rahe hain, sirf redirect
       router.push('/bookings?success=true');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -119,7 +122,9 @@ export default function BookingForm({
                 }`}
               >
                 <div className="font-bold text-sm">Home Service</div>
-                <div className="text-xs text-gray-600 mt-1">At your location</div>
+                <div className="text-xs text-gray-600 mt-1">
+                  At your location
+                </div>
               </button>
               <button
                 type="button"
@@ -131,7 +136,9 @@ export default function BookingForm({
                 }`}
               >
                 <div className="font-bold text-sm">Shop Service</div>
-                <div className="text-xs text-gray-600 mt-1">At shop location</div>
+                <div className="text-xs text-gray-600 mt-1">
+                  At shop location
+                </div>
               </button>
             </div>
           </div>
