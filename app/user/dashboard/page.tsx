@@ -26,11 +26,16 @@ export default function UserDashboard() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // Wait until NextAuth finishes checking the session
+    if (status === 'loading') return;
+
     if (status === 'unauthenticated') {
+      // Only trigger signIn once and let NextAuth handle redirect
       signIn(undefined, { callbackUrl: '/user/dashboard' });
       return;
     }
 
+    // User is authenticated – now fetch bookings
     if (status === 'authenticated') {
       fetchBookings();
     }
@@ -38,9 +43,23 @@ export default function UserDashboard() {
 
   const fetchBookings = async () => {
     try {
-      const res = await fetch('/api/bookings/me');
-      console.log('fetch booking', res);
+      setLoading(true);
+      setError('');
+
+      const res = await fetch('/api/bookings/me', {
+        // Important: include credentials so NextAuth session cookie is sent
+        credentials: 'include',
+      });
+
+      if (res.status === 401) {
+        // If API says unauthorized, don’t infinite‑loop, just show message
+        setError('You must be logged in to view bookings.');
+        setBookings([]);
+        return;
+      }
+
       if (!res.ok) throw new Error('Failed to fetch bookings');
+
       const data = await res.json();
       setBookings(data.data || []);
     } catch (err) {
@@ -57,7 +76,6 @@ export default function UserDashboard() {
   ).length;
   const completedBookings = bookings.filter((b) => b.status === 'completed').length;
 
-  // money spent
   const totalSpent = bookings.reduce((sum, b) => sum + (b.price || 0), 0);
   const totalCompletedSpent = bookings
     .filter((b) => b.status === 'completed')
@@ -134,7 +152,6 @@ export default function UserDashboard() {
             </div>
           )}
 
-          {/* Stats cards including money spent */}
           <div className="grid md:grid-cols-4 gap-6 mb-8">
             <div className="card">
               <p className="text-sm text-gray-500">Total Bookings</p>
@@ -159,7 +176,7 @@ export default function UserDashboard() {
 
           <div className="card">
             <h2 className="text-2xl font-display font-bold mb-6">
-              <Link className="cursor-pointer" href={'/bookings?success=true'}>
+              <Link className="cursor-pointer" href={'/user/bookings'}>
                 My Bookings
               </Link>
             </h2>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession, signIn } from 'next-auth/react';
 import Header from '@/components/shared/Header';
 import LoadingSpinner from '@/components/shared/LoadingSpinner';
 import ReviewForm from '@/components/customer/ReviewForm';
@@ -33,28 +34,46 @@ interface Booking {
 
 export default function BookingsPage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [reviewingBooking, setReviewingBooking] = useState<Booking | null>(null);
-  const [currentUser, setCurrentUser] = useState<any>(null);
 
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (!user) {
-      router.push('/login');
+    if (status === 'loading') return;
+
+    if (status === 'unauthenticated') {
+      // Use NextAuth login, redirect back here after success
+      signIn(undefined, { callbackUrl: '/bookings' });
       return;
     }
-    setCurrentUser(JSON.parse(user));
-    fetchBookings();
-  }, [router]);
+
+    if (status === 'authenticated') {
+      fetchBookings();
+    }
+  }, [status]);
 
   const fetchBookings = async () => {
     try {
-      const res = await fetch('/api/bookings');
-      console.log('fetch ',res)
+      setLoading(true);
+      setError('');
+
+      const res = await fetch('/api/bookings', {
+        credentials: 'include', // send session cookie
+      });
+      console.log('fetch ', res);
+
+      if (res.status === 401) {
+        setError('You must be logged in to view bookings.');
+        setBookings([]);
+        return;
+      }
+
       if (!res.ok) throw new Error('Failed to fetch bookings');
+
       const data = await res.json();
       setBookings(data.data || []);
     } catch (err) {
@@ -74,7 +93,14 @@ export default function BookingsPage() {
         body: JSON.stringify({ status: 'cancelled' }),
       });
 
+      if (res.status === 401) {
+        // session expired – send user to login
+        signIn(undefined, { callbackUrl: '/bookings' });
+        return;
+      }
+
       if (!res.ok) throw new Error('Failed to cancel booking');
+
       fetchBookings();
     } catch (err) {
       alert(err instanceof Error ? err.message : 'An error occurred');
@@ -86,7 +112,7 @@ export default function BookingsPage() {
       ? bookings
       : bookings.filter((b) => b.status === filterStatus);
 
-  if (loading) {
+  if (status === 'loading' || loading) {
     return (
       <div>
         <Header />
@@ -95,19 +121,21 @@ export default function BookingsPage() {
     );
   }
 
-  if (!currentUser) {
+  if (!session) {
     return (
       <div>
         <Header />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <AlertCircle className="w-12 h-12 text-yellow-600 mx-auto mb-4" />
-            <h1 className="text-3xl font-display font-bold mb-2">Sign In Required</h1>
+            <h1 className="text-3xl font-display font-bold mb-2">
+              Sign In Required
+            </h1>
             <p className="text-gray-600 mb-6">
               Please sign in to view your bookings
             </p>
             <button
-              onClick={() => router.push('/login')}
+              onClick={() => signIn(undefined, { callbackUrl: '/bookings' })}
               className="btn btn-primary"
             >
               Sign In
@@ -117,6 +145,8 @@ export default function BookingsPage() {
       </div>
     );
   }
+
+  const userEmail = session.user?.email ?? '';
 
   return (
     <div>
@@ -162,7 +192,7 @@ export default function BookingsPage() {
             </h3>
             <p className="text-gray-600 mb-6">
               {filterStatus === 'all'
-                ? 'You haven\'t made any bookings yet.'
+                ? "You haven't made any bookings yet."
                 : `No ${filterStatus} bookings.`}
             </p>
           </div>
@@ -269,7 +299,7 @@ export default function BookingsPage() {
               bookingId={reviewingBooking._id}
               serviceId={reviewingBooking.serviceId._id}
               vendorId={reviewingBooking.vendorId._id}
-              userEmail={currentUser?.email}
+              userEmail={userEmail}
               onSuccess={() => {
                 setReviewingBooking(null);
                 fetchBookings();
