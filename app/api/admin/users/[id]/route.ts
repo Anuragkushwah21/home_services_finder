@@ -1,15 +1,15 @@
+
 // app/api/admin/users/[id]/route.ts
-import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import User from '@/lib/models/User';
 
 interface RouteContext {
-  params: Promise<{ id: string }>; // 🔴 Next 15: params is async
+  params: Promise<{ id: string }>;
 }
 
-// PATCH: role + isActive (admin only)
 export async function PATCH(req: NextRequest, context: RouteContext) {
   try {
     const session = await getServerSession(authOptions);

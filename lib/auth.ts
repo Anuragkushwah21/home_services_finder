@@ -1,80 +1,108 @@
 // lib/auth.ts
-import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import { connectDB } from '@/lib/db';
 import User from '@/lib/models/User';
 
-export const authConfig: NextAuthConfig = {
+export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: 'jwt',
+  },
   providers: [
     CredentialsProvider({
+      id: 'credentials',
+      name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error('Invalid credentials');
+          throw new Error('Email and password are required');
         }
 
-        try {
-          await connectDB();
-          const user = await User.findOne({ email: credentials.email });
+        await connectDB();
 
-          if (!user) {
-            throw new Error('User not found');
-          }
+        const user = await User.findOne({
+          email: credentials.email.toLowerCase(),
+        });
 
-          const passwordMatch = await bcrypt.compare(
-            credentials.password,
-            user.passwordHash
-          );
+        if (!user) {
+          throw new Error('Invalid email or password');
+        }
 
-          if (!passwordMatch) {
-            throw new Error('Invalid password');
-          }
+        if (!user.emailVerified) {
+          throw new Error('Please verify your email first');
+        }
 
-          return {
-            id: user._id.toString(),
-            email: user.email,
-            name: user.name,
-            role: user.role,
-            city: user.city,
-          };
-        } catch (error) {
+        if (user.isActive === false) {
           throw new Error(
-            error instanceof Error ? error.message : 'Authentication failed'
+            'Your account has been deactivated by admin. Please create a new account.'
           );
         }
+
+        const passwordMatch = await bcrypt.compare(
+          credentials.password,
+          user.passwordHash
+        );
+
+        if (!passwordMatch) {
+          throw new Error('Invalid email or password');
+        }
+
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role as 'user' | 'vendor' | 'admin',
+          emailVerified: user.emailVerified,
+          isActive: user.isActive,
+        };
       },
     }),
   ],
   pages: {
     signIn: '/login',
+    // error: '/auth/error', // agar custom error page use karna ho to
   },
- callbacks: {
+  callbacks: {
+    // OPTIONAL: signIn callback (agar extra safety chahiye)
+    async signIn({ user }) {
+      await connectDB();
+      const dbUser = await User.findOne({ email: user?.email }).lean();
+
+      if (!dbUser) {
+        throw new Error('Invalid email or password');
+      }
+
+      if (dbUser.isActive === false) {
+        throw new Error(
+          'Your account has been deactivated by admin. Please create a new account.'
+        );
+      }
+
+      return true;
+    },
+
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.role = user.role as 'admin' | 'vendor' | 'user';
-        token.city = user.city;
+        token.id = (user as any).id;
+        token.role = (user as any).role;
+        token.emailVerified = (user as any).emailVerified;
+        token.isActive = (user as any).isActive;
       }
       return token;
     },
+
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as
-          | 'admin'
-          | 'vendor'
-          | 'user';
-        session.user.city = token.city;
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role;
+        (session.user as any).emailVerified = token.emailVerified;
+        (session.user as any).isActive = token.isActive;
       }
       return session;
     },
-  },
-  session: {
-    strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60,
   },
 };
