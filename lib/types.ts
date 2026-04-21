@@ -1,7 +1,14 @@
+// src/types/index.ts (ya jo bhi path tum use karte ho)
+
 export type UserRole = 'user' | 'vendor' | 'admin';
 export type ServiceType = 'home' | 'shop' | 'both';
 export type BookingType = 'home' | 'shop';
-export type BookingStatus = 'pending' | 'accepted' | 'in_progress' | 'completed' | 'cancelled';
+export type BookingStatus =
+  | 'pending'
+  | 'accepted'
+  | 'in_progress'
+  | 'completed'
+  | 'cancelled';
 export type PaymentStatus = 'unpaid' | 'paid';
 
 export interface User {
@@ -18,6 +25,7 @@ export interface User {
     pincode: string;
   }>;
   profileCompleted: boolean;
+  isActive: boolean;      // 🔴 added to match schema + admin UI
   createdAt: string;
 }
 
@@ -31,9 +39,9 @@ export interface Vendor {
   shopAddress: string;
   experienceYears: number;
   isVerified: boolean;
-  rating: number;
-  totalBookings: number;
-  workingHours: string;
+  rating?: number;        // optional: sometimes not set
+  totalBookings?: number; // optional
+  workingHours?: string;  // optional
   profileCompleted: boolean;
   createdAt: string;
 }
@@ -57,8 +65,8 @@ export interface Service {
   priceUnit: string;
   durationMinutes: number;
   tags: string[];
-  rating: number;
-  totalBookings: number;
+  rating?: number;        // optional
+  totalBookings?: number; // optional
   isActive: boolean;
   createdAt: string;
 }
@@ -76,7 +84,7 @@ export interface Booking {
     city: string;
     pincode: string;
   };
-  notes: string;
+  notes?: string;         // optional, user may not add notes
   status: BookingStatus;
   price: number;
   paymentStatus: PaymentStatus;

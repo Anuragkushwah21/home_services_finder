@@ -17,6 +17,7 @@ export interface IUser extends Document {
     locationCoords?: { lat: number; lng: number };
   }>;
   profileCompleted: boolean;
+  isActive: boolean;           // 🔴 new field
   createdAt: Date;
   updatedAt: Date;
 }
@@ -40,8 +41,10 @@ const UserSchema = new Schema<IUser>(
       },
     ],
     profileCompleted: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true }, // 🔴 new field with default
   },
   { timestamps: true }
 );
 
-export default mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
+export default mongoose.models.User ||
+  mongoose.model<IUser>('User', UserSchema);

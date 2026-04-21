@@ -1,3 +1,4 @@
+// app/api/admin/users/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -18,27 +19,34 @@ export async function GET(req: NextRequest) {
 
     await connectDB();
 
-    // All users (except maybe admin themselves if you want)
-    const users = await User.find({}, 'name email role createdAt')
+    const users = await User.find(
+      {},
+      'name email role isActive createdAt'
+    )
       .sort({ createdAt: -1 })
       .lean();
 
-    // Vendors with user info
-    const vendors = await Vendor.find({})
-      .populate('userId', 'name email role')
-      .sort({ createdAt: -1 })
+    const vendors = await Vendor.find()
+      .populate('userId', 'name email role isActive')
       .lean();
 
     return NextResponse.json(
-      { success: true, data: { users, vendors } },
+      {
+        success: true,
+        data: {
+          users,
+          vendors,
+        },
+      },
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error fetching users/vendors:', error);
+    console.error('Error fetching admin users/vendors:', error);
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );

@@ -1,14 +1,16 @@
+// app/api/admin/users/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { connectDB } from '@/lib/db';
 import User from '@/lib/models/User';
 
-interface Params {
-  params: { id: string };
+interface RouteContext {
+  params: Promise<{ id: string }>; // 🔴 Next 15: params is async
 }
 
-export async function PATCH(req: NextRequest, { params }: Params) {
+// PATCH: role + isActive (admin only)
+export async function PATCH(req: NextRequest, context: RouteContext) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -19,22 +21,30 @@ export async function PATCH(req: NextRequest, { params }: Params) {
       );
     }
 
-    const { role } = await req.json(); // 'user' | 'vendor' | 'admin'
+    const { id } = await context.params; // ✅ await params
 
-    if (!role) {
+    const { role, isActive } = (await req.json()) as {
+      role?: 'user' | 'vendor' | 'admin';
+      isActive?: boolean;
+    };
+
+    const updateData: { role?: string; isActive?: boolean } = {};
+    if (role) updateData.role = role;
+    if (typeof isActive === 'boolean') updateData.isActive = isActive;
+
+    if (Object.keys(updateData).length === 0) {
       return NextResponse.json(
-        { success: false, error: 'Role is required' },
+        { success: false, error: 'Nothing to update' },
         { status: 400 }
       );
     }
 
     await connectDB();
 
-    const user = await User.findByIdAndUpdate(
-      params.id,
-      { role },
-      { new: true }
-    ).lean();
+    const user = await User.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    }).lean();
 
     if (!user) {
       return NextResponse.json(
@@ -48,11 +58,54 @@ export async function PATCH(req: NextRequest, { params }: Params) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error updating user role:', error);
+    console.error('Error updating user (role/isActive):', error);
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Internal server error',
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// GET: single user (admin only, optional)
+export async function GET(req: NextRequest, context: RouteContext) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session || (session.user as any)?.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const { id } = await context.params; // ✅ await params
+
+    await connectDB();
+
+    const user = await User.findById(id).lean();
+
+    if (!user) {
+      return NextResponse.json(
+        { success: false, error: 'User not found' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { success: true, data: user },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return NextResponse.json(
+      {
+        success: false,
+        error:
+          error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
