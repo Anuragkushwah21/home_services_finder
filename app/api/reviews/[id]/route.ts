@@ -5,11 +5,14 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import Review from '@/lib/models/Review';
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+interface RouteContext {
+  params: Promise<{ id: string }>;
+}
+
+export async function POST(req: NextRequest, context: RouteContext) {
   try {
+    const { id } = await context.params;
+
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
       return NextResponse.json(
@@ -29,7 +32,7 @@ export async function POST(
     await connectDB();
 
     const booking = await Booking.findOne({
-      _id: params.id,
+      _id: id,
       userId: session.user.id,
     });
 
@@ -62,12 +65,9 @@ export async function POST(
   }
 }
 
-export async function GET(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(req: NextRequest, context: RouteContext) {
   try {
-    const { id } = params;
+    const { id } = await context.params;
 
     if (!id) {
       return NextResponse.json(

@@ -4,11 +4,14 @@ import Booking from '@/lib/models/Booking';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+interface RouteContext {
+  params: Promise<{ id: string }>;
+}
+
+export async function PATCH(req: NextRequest, context: RouteContext) {
   try {
+    const { id } = await context.params; // Fixed: use 'id' consistently
+
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
@@ -29,7 +32,7 @@ export async function PATCH(
 
     await connectDB();
 
-    const booking = await Booking.findById(params.id);
+    const booking = await Booking.findById(id); // Fixed: use 'id'
 
     if (!booking) {
       return NextResponse.json(
@@ -77,12 +80,13 @@ export async function PATCH(
   }
 }
 
-
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext // Fixed: use RouteContext (params as Promise)
 ) {
   try {
+    const { id } = await context.params; // Fixed: await params
+
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
       return NextResponse.json(
@@ -102,7 +106,7 @@ export async function POST(
     await connectDB();
 
     const booking = await Booking.findOne({
-      _id: params.id,
+      _id: id, // Fixed: use 'id'
       userId: session.user.id,
     });
 

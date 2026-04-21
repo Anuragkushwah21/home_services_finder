@@ -11,8 +11,10 @@ interface RouteContext {
 }
 
 export async function PATCH(req: NextRequest, context: RouteContext) {
+  
+  const session = await getServerSession(authOptions);
   try {
-    const session = await getServerSession(authOptions);
+    
 
     if (!session || (session.user as any)?.role !== 'admin') {
       return NextResponse.json(

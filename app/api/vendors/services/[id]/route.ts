@@ -5,10 +5,11 @@ import Vendor from '@/lib/models/Vendor';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+interface RouteContext {
+  params: Promise<{ id: string }>;
+}
+
+export async function PUT(req: NextRequest, context: RouteContext) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -19,8 +20,18 @@ export async function PUT(
       );
     }
 
-    const { categoryId, name, description, serviceType, basePrice, priceUnit, durationMinutes, tags } =
-      await req.json();
+    const {
+      categoryId,
+      name,
+      description,
+      serviceType,
+      basePrice,
+      priceUnit,
+      durationMinutes,
+      tags,
+    } = await req.json();
+
+    const { id } = await context.params;
 
     await connectDB();
 
@@ -34,7 +45,7 @@ export async function PUT(
     }
 
     // Get service
-    const service = await Service.findById(params.id);
+    const service = await Service.findById(id);
     if (!service) {
       return NextResponse.json(
         { success: false, error: 'Service not found' },
@@ -51,14 +62,14 @@ export async function PUT(
     }
 
     // Update service
-    if (categoryId) service.categoryId = categoryId;
-    if (name) service.name = name;
-    if (description) service.description = description;
-    if (serviceType) service.serviceType = serviceType;
-    if (basePrice) service.basePrice = basePrice;
-    if (priceUnit) service.priceUnit = priceUnit;
-    if (durationMinutes) service.durationMinutes = durationMinutes;
-    if (tags) service.tags = tags;
+    if (categoryId !== undefined) service.categoryId = categoryId;
+    if (name !== undefined) service.name = name;
+    if (description !== undefined) service.description = description;
+    if (serviceType !== undefined) service.serviceType = serviceType;
+    if (basePrice !== undefined) service.basePrice = basePrice;
+    if (priceUnit !== undefined) service.priceUnit = priceUnit;
+    if (durationMinutes !== undefined) service.durationMinutes = durationMinutes;
+    if (tags !== undefined) service.tags = tags;
 
     await service.save();
 
@@ -77,10 +88,7 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(req: NextRequest, context: RouteContext) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -90,6 +98,8 @@ export async function DELETE(
         { status: 401 }
       );
     }
+
+    const { id } = await context.params;
 
     await connectDB();
 
@@ -103,7 +113,7 @@ export async function DELETE(
     }
 
     // Get service
-    const service = await Service.findById(params.id);
+    const service = await Service.findById(id);
     if (!service) {
       return NextResponse.json(
         { success: false, error: 'Service not found' },
@@ -120,7 +130,7 @@ export async function DELETE(
     }
 
     // Delete service
-    await Service.deleteOne({ _id: params.id });
+    await Service.deleteOne({ _id: id });
 
     return NextResponse.json({
       success: true,

@@ -5,12 +5,14 @@ import { authOptions } from '@/lib/auth';
 import { connectDB } from '@/lib/db';
 import Vendor from '@/lib/models/Vendor';
 
-interface RouteParams {
-  params: { vendorId: string };
+interface RouteContext {
+  params: Promise<{ vendorId: string }>;
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(req: NextRequest, context: RouteContext) {
   try {
+    const { vendorId } = await context.params;
+
     const session = await getServerSession(authOptions);
 
     if (!session || (session.user as any)?.role !== 'admin') {
@@ -20,7 +22,6 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const { vendorId } = params;
     const { approved } = await req.json();
 
     if (typeof approved !== 'boolean') {

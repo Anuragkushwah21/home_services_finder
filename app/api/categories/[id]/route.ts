@@ -2,15 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Category from '@/lib/models/Category';
 
-interface RouteParams {
-  params: { id: string };
+interface RouteContext {
+  params: Promise<{ id: string }>;
 }
 
-export async function GET(req: NextRequest, { params }: RouteParams) {
+export async function GET(req: NextRequest, context: RouteContext) {
   try {
+    const { id } = await context.params;
+
     await connectDB();
 
-    const category = await Category.findById(params.id);
+    const category = await Category.findById(id);
 
     if (!category) {
       return NextResponse.json(
@@ -34,9 +36,11 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(req: NextRequest, context: RouteContext) {
   try {
     const { name, type, icon, isActive } = await req.json();
+
+    const { id } = await context.params;
 
     await connectDB();
 
@@ -46,7 +50,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
     if (icon !== undefined) update.icon = icon;
     if (isActive !== undefined) update.isActive = isActive;
 
-    const category = await Category.findByIdAndUpdate(params.id, update, {
+    const category = await Category.findByIdAndUpdate(id, update, {
       new: true,
     });
 
@@ -72,11 +76,13 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteParams) {
+export async function DELETE(req: NextRequest, context: RouteContext) {
   try {
+    const { id } = await context.params;
+
     await connectDB();
 
-    const category = await Category.findByIdAndDelete(params.id);
+    const category = await Category.findByIdAndDelete(id);
 
     if (!category) {
       return NextResponse.json(

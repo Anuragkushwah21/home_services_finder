@@ -6,15 +6,11 @@ interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
-export async function GET(
-  req: NextRequest,
-  { params }: RouteContext
-) {
+export async function GET(req: NextRequest, context: RouteContext) {
   try {
-    await connectDB();
+    const { id } = await context.params;
 
-    // 👇 await params first
-    const { id } = await params;
+    await connectDB();
 
     const service = await Service.findById(id)
       .populate(
@@ -38,10 +34,7 @@ export async function GET(
     return NextResponse.json(
       {
         success: false,
-        error:
-          error instanceof Error
-            ? error.message
-            : 'Internal server error',
+        error: error instanceof Error ? error.message : 'Internal server error',
       },
       { status: 500 }
     );
