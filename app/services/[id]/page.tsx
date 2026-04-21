@@ -47,12 +47,13 @@ interface Review {
   };
 }
 
+// ✅ Client components use plain params
 type PageProps = {
-  params: Promise<{ id: string }>; // Next 15 Promise params
+  params: { id: string };
 };
 
 export default function ServiceDetailPage({ params }: PageProps) {
-  const [serviceId, setServiceId] = useState<string | null>(null);
+  const [serviceId] = useState<string>(params.id); // no need for async unwrap
   const [service, setService] = useState<Service | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,15 +62,6 @@ export default function ServiceDetailPage({ params }: PageProps) {
 
   const { data: session, status } = useSession();
   const isCustomer = session?.user?.role === 'user';
-
-  // unwrap params once
-  useEffect(() => {
-    const unwrap = async () => {
-      const resolved = await params;
-      setServiceId(resolved.id);
-    };
-    unwrap();
-  }, [params]);
 
   // fetch service details by id
   useEffect(() => {
@@ -133,11 +125,16 @@ export default function ServiceDetailPage({ params }: PageProps) {
       <div>
         <Header />
         <div className="container mx-auto px-4 py-8">
-          <Link href="/services" className="inline-flex items-center text-sm text-gray-600 mb-4">
+          <Link
+            href="/services"
+            className="inline-flex items-center text-sm text-gray-600 mb-4"
+          >
             <ArrowLeft className="w-4 h-4 mr-1" />
             Back to services
           </Link>
-          <p className="text-red-600 font-medium">{error || 'Service not found'}</p>
+          <p className="text-red-600 font-medium">
+            {error || 'Service not found'}
+          </p>
         </div>
       </div>
     );
