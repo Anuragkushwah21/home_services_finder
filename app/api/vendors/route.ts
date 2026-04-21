@@ -5,7 +5,7 @@ import { connectDB } from '@/lib/db';
 import Vendor from '@/lib/models/Vendor';
 import User from '@/lib/models/User';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {

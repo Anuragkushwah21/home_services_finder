@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Booking from '@/lib/models/Booking';
 import { getServerSession } from 'next-auth';
-import { authConfig } from '@/lib/auth';
+import { authOptions } from '@/lib/auth';
 import Review from '@/lib/models/Review';
 
 export async function POST(
@@ -10,7 +10,7 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authConfig);
+    const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
       return NextResponse.json(
         { success: false, error: 'Unauthorized' },

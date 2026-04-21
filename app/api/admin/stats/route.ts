@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { getServerSession } from 'next-auth';
-import { authConfig } from '@/lib/auth';
+import { authOptions } from '@/lib/auth';
 import User from '@/lib/models/User';
 import Vendor from '@/lib/models/Vendor';
 import Booking from '@/lib/models/Booking';
@@ -9,7 +9,7 @@ import Service from '@/lib/models/Service';
 
 export async function GET(req: NextRequest) {
   try {
-    const session = await getServerSession(authConfig);
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user || (session.user as any).role !== 'admin') {
       return NextResponse.json(

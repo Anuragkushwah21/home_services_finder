@@ -3,14 +3,14 @@ import { connectDB } from '@/lib/db';
 import Service from '@/lib/models/Service';
 import Vendor from '@/lib/models/Vendor';
 import { getServerSession } from 'next-auth';
-import { authConfig } from '@/lib/auth';
+import { authOptions } from '@/lib/auth';
 
 export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authConfig);
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user || (session.user as any).role !== 'vendor') {
       return NextResponse.json(
@@ -82,7 +82,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const session = await getServerSession(authConfig);
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user || (session.user as any).role !== 'vendor') {
       return NextResponse.json(

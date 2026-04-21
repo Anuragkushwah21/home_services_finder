@@ -3,7 +3,7 @@ import { connectDB } from '@/lib/db';
 import Booking from '@/lib/models/Booking';
 import Service from '@/lib/models/Service';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {

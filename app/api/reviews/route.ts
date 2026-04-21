@@ -4,11 +4,11 @@ import Review from '@/lib/models/Review';
 import Booking from '@/lib/models/Booking';
 import User from '@/lib/models/User';
 import { getServerSession } from 'next-auth';
-import { authConfig } from '@/lib/auth';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authConfig);
+    const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
       return NextResponse.json(
