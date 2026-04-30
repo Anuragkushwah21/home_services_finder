@@ -76,7 +76,7 @@ export default function BookingForm({
       }
 
       // Success case: body ignore kar rahe hain, sirf redirect
-      router.push('/bookings?success=true');
+      router.push('/user/bookings');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
