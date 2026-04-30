@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { signIn, getSession } from 'next-auth/react';
 import Header from '@/components/shared/Header';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 export default function LoginPageClient({
   callbackUrl,
@@ -26,12 +27,16 @@ export default function LoginPageClient({
 
     try {
       if (!email.trim()) {
-        setError('Email is required');
+        const msg = 'Email is required';
+        setError(msg);
+        toast.error(msg);
         setLoading(false);
         return;
       }
       if (!password) {
-        setError('Password is required');
+        const msg = 'Password is required';
+        setError(msg);
+        toast.error(msg);
         setLoading(false);
         return;
       }
@@ -45,6 +50,7 @@ export default function LoginPageClient({
 
       if (res?.error) {
         setError(res.error);
+        toast.error(res.error);
         return;
       }
 
@@ -59,9 +65,12 @@ export default function LoginPageClient({
         target = '/vendor/dashboard';
       }
 
+      toast.success('Logged in successfully');
       router.push(target);
     } catch (err) {
-      setError('Login failed');
+      const msg = 'Login failed';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Mail, Phone } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 interface ContactFormProps {
   vendorId?: string;
@@ -26,7 +27,7 @@ export default function ContactForm({
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -41,6 +42,18 @@ export default function ContactForm({
     setLoading(true);
 
     try {
+      // Optional: quick front-end validation for nicer messages
+      if (!formData.name.trim())
+        throw new Error('Name is required');
+      if (!formData.email.trim())
+        throw new Error('Email is required');
+      if (!formData.phone.trim())
+        throw new Error('Phone is required');
+      if (!formData.subject.trim())
+        throw new Error('Subject is required');
+      if (!formData.message.trim() || formData.message.trim().length < 10)
+        throw new Error('Message must be at least 10 characters');
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -66,13 +79,17 @@ export default function ContactForm({
         message: '',
       });
 
+      toast.success('Message sent successfully!');
+
       if (onSuccess) {
         setTimeout(() => {
           onSuccess();
         }, 2000);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      const msg = err instanceof Error ? err.message : 'An error occurred';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -86,7 +103,7 @@ export default function ContactForm({
         </div>
         <h3 className="text-xl font-bold text-green-800 mb-2">Message Sent!</h3>
         <p className="text-green-700">
-          Thank you for contacting us. We'll get back to you within 24-48 hours.
+          Thank you for contacting us. We&apos;ll get back to you within 24-48 hours.
         </p>
       </div>
     );
@@ -96,7 +113,8 @@ export default function ContactForm({
     <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
       <h2 className="text-2xl font-bold mb-2">Get in Touch</h2>
       <p className="text-gray-600 mb-6">
-        Have a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+        Have a question? We&apos;d love to hear from you. Send us a message and we&apos;ll
+        respond as soon as possible.
       </p>
 
       {error && (

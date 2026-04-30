@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Calendar, Clock, MapPin } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 interface BookingFormProps {
   serviceId: string;
-  serviceType: string;
+  serviceType: string; // 'home' | 'shop' | 'both'
   basePrice: number;
   vendorCity: string;
 }
@@ -37,18 +38,23 @@ export default function BookingForm({
     setLoading(true);
 
     if (!session) {
+      toast.error('Please sign in to book services');
       router.push('/login');
       return;
     }
 
     if (!bookingDate || !bookingTime) {
-      setError('Please fill in all required fields');
+      const msg = 'Please fill in all required fields';
+      setError(msg);
+      toast.error(msg);
       setLoading(false);
       return;
     }
 
     if (bookingType === 'home' && !address) {
-      setError('Address is required for home services');
+      const msg = 'Address is required for home services';
+      setError(msg);
+      toast.error(msg);
       setLoading(false);
       return;
     }
@@ -71,20 +77,27 @@ export default function BookingForm({
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to create booking');
+        let msg = 'Failed to create booking';
+        try {
+          const data = await response.json();
+          msg = data.error || msg;
+        } catch {
+          // ignore JSON parse error
+        }
+        throw new Error(msg);
       }
 
-      // Success case: body ignore kar rahe hain, sirf redirect
+      toast.success('Booking created successfully');
       router.push('/user/bookings');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      const msg = err instanceof Error ? err.message : 'An error occurred';
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
   };
 
-  // Service type validation
   const canBookHome = ['home', 'both'].includes(serviceType);
   const canBookShop = ['shop', 'both'].includes(serviceType);
 

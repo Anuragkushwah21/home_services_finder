@@ -47,7 +47,7 @@ export default function ServicesPage() {
           setCategories(data.data);
         }
       } catch (error) {
-        console.error('[v0] Error fetching categories:', error);
+        console.error('Error fetching categories:', error);
       }
     };
 
@@ -73,7 +73,7 @@ export default function ServicesPage() {
         setServices(data.data);
       }
     } catch (error) {
-      console.error('[v0] Error fetching services:', error);
+      console.error('Error fetching services:', error);
     } finally {
       setLoading(false);
     }

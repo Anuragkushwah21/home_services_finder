@@ -21,56 +21,6 @@ export default function ContactPage() {
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Contact form */}
             <ContactForm/>
-            {/* <div className="card p-6">
-              <h2 className="text-2xl font-semibold mb-4">Send us a message</h2>
-              <form className="space-y-4">
-                <div>
-                  <label className="block font-bold text-sm mb-2">Full Name *</label>
-                  <input
-                    type="text"
-                    className="input-field"
-                    placeholder="John Doe"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-sm mb-2">Email *</label>
-                  <input
-                    type="email"
-                    className="input-field"
-                    placeholder="you@example.com"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-sm mb-2">Phone (optional)</label>
-                  <input
-                    type="tel"
-                    className="input-field"
-                    placeholder="+91 98765 43210"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-sm mb-2">Message *</label>
-                  <textarea
-                    className="input-field min-h-[120px]"
-                    placeholder="Tell us a bit about your project or question..."
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full btn btn-primary"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div> */}
-
             {/* Map + contact info */}
             <div className="space-y-4">
               <div className="card overflow-hidden">
